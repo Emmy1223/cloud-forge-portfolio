@@ -1,4 +1,4 @@
-import { ArrowUpRight, Cloud, Activity } from "lucide-react";
+import { Cloud, Activity } from "lucide-react";
 import { useReveal } from "@/hooks/use-reveal";
 import { cn } from "@/lib/utils";
 
