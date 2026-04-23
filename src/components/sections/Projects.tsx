@@ -1,4 +1,4 @@
-import { ArrowUpRight, Cloud, Activity } from "lucide-react";
+import { Cloud, Activity } from "lucide-react";
 import { useReveal } from "@/hooks/use-reveal";
 import { cn } from "@/lib/utils";
 
@@ -75,15 +75,6 @@ const Projects = () => {
                 ))}
               </div>
 
-              <div className="relative mt-7">
-                <a
-                  href="#contact"
-                  className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/50 px-5 py-2.5 text-sm font-semibold text-foreground transition-all hover:border-primary/50 hover:bg-secondary"
-                >
-                  View Project
-                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </a>
-              </div>
             </article>
           ))}
         </div>

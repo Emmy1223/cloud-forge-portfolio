@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Github, Mail, MessageCircle } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -16,11 +16,11 @@ const Footer = () => {
           <SocialLink href="mailto:emmanuelfaleti@outlook.com" label="Email">
             <Mail className="h-4 w-4" />
           </SocialLink>
-          <SocialLink href="#" label="GitHub">
+          <SocialLink href="https://github.com/Emmy1223" label="GitHub">
             <Github className="h-4 w-4" />
           </SocialLink>
-          <SocialLink href="#" label="LinkedIn">
-            <Linkedin className="h-4 w-4" />
+          <SocialLink href="https://wa.me/2349118074905" label="WhatsApp">
+            <MessageCircle className="h-4 w-4" />
           </SocialLink>
         </div>
       </div>
