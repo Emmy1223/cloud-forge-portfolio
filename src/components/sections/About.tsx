@@ -45,8 +45,8 @@ const About = () => {
           <div className="glass relative rounded-[1.75rem] p-7">
             <div className="flex items-center gap-2">
               <span className="h-3 w-3 rounded-full bg-destructive/70" />
-              <span className="h-3 w-3 rounded-full bg-yellow-500/70" />
-              <span className="h-3 w-3 rounded-full bg-green-500/70" />
+              <span className="h-3 w-3 rounded-full bg-accent/60" />
+              <span className="h-3 w-3 rounded-full bg-primary/70" />
               <span className="ml-3 text-xs text-muted-foreground">~/faleti/stack</span>
             </div>
 
