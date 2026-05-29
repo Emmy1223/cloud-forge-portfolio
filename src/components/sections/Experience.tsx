@@ -12,7 +12,7 @@ type Role = {
 };
 
 
-const experience = [
+const experience: Role[] = [
   {
     role: "Cloud Engineering Intern",
     company: "Ntech",
@@ -24,6 +24,11 @@ const experience = [
       "Applied IP addressing, DNS, and routing to support infrastructure operations",
       "Supported security best practices including access control and system hardening",
       "Used command-line tools and scripts to manage and troubleshoot cloud resources",
+    ],
+    highlights: [
+      "Reduced server response time by ~15% through proactive system monitoring",
+      "Documented 10+ security hardening practices for Linux servers",
+      "Created an automated backup script using Bash for cloud storage",
     ],
   },
   {
