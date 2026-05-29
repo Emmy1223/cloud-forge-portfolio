@@ -54,17 +54,17 @@ const Hero = () => {
           </div>
 
           <h1 className="animate-fade-in-slow mt-6 font-display text-5xl font-bold leading-[1.05] tracking-tight text-foreground sm:text-6xl md:text-7xl lg:text-8xl [animation-delay:120ms]">
-            <span className="block">Faleti</span>
-            <span className="block text-gradient">Emmanuel</span>
+            <span className="block">Emmanuel</span>
+            <span className="block text-gradient">Faleti</span>
           </h1>
 
           <p className="animate-fade-in mt-6 text-lg font-medium text-foreground/80 sm:text-xl [animation-delay:280ms]">
-            Cloud Engineer <span className="text-muted-foreground">&</span> Cybersecurity Enthusiast
+            Cloud Engineering Intern <span className="text-muted-foreground">&</span> Cybersecurity Undergraduate
           </p>
 
           <p className="animate-fade-in mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg [animation-delay:380ms]">
-            I design, automate, and secure cloud systems using Python and modern infrastructure tools.
-            Focused on building scalable and reliable solutions.
+            Hands-on with AWS (EC2, S3, IAM, VPC), Linux administration, and networking. Passionate
+            about building secure, scalable cloud systems and applying cybersecurity best practices.
           </p>
 
           <div className="animate-fade-in mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row [animation-delay:480ms]">
