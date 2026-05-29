@@ -1,21 +1,28 @@
-import { Cloud, Activity } from "lucide-react";
+import { Cloud, Activity, ShieldCheck } from "lucide-react";
 import { useReveal } from "@/hooks/use-reveal";
 import { cn } from "@/lib/utils";
 
 const projects = [
   {
     icon: Cloud,
-    title: "Cloud File Uploader",
+    title: "Static Website Hosted on AWS S3",
     description:
-      "Python-based tool that uploads, downloads, and manages files in AWS S3. Demonstrates cloud integration and automation.",
-    tags: ["Python", "AWS", "Cloud"],
+      "Deployed a fully static portfolio site using an S3 bucket with public access and custom permissions configured via IAM.",
+    tags: ["AWS S3", "IAM", "Static Hosting"],
   },
   {
     icon: Activity,
-    title: "Server Monitoring Tool",
+    title: "Linux Server Monitoring Lab",
     description:
-      "Monitors system performance and sends alerts based on CPU and memory usage. Simulates real-world DevOps monitoring.",
-    tags: ["Python", "Monitoring", "DevOps"],
+      "Set up a Linux-based virtual server with uptime monitoring, resource tracking, and automated log rotation using Bash scripts.",
+    tags: ["Linux", "Bash", "Monitoring"],
+  },
+  {
+    icon: ShieldCheck,
+    title: "Network Scanning with Nmap & Wireshark",
+    description:
+      "Performed network discovery and traffic analysis on a test environment, documenting open ports and potential vulnerabilities.",
+    tags: ["Nmap", "Wireshark", "Networking"],
   },
 ];
 
@@ -34,11 +41,11 @@ const Projects = () => {
             </h2>
           </div>
           <p className="max-w-md text-muted-foreground">
-            Selected work that blends cloud, automation, and operational insight.
+            Hands-on labs and deployments that blend cloud, automation, and security fundamentals.
           </p>
         </div>
 
-        <div className="mt-14 grid gap-6 lg:grid-cols-2">
+        <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {projects.map((p, i) => (
             <article
               key={p.title}
@@ -59,22 +66,21 @@ const Projects = () => {
                 </span>
               </div>
 
-              <h3 className="relative mt-6 font-display text-2xl font-bold text-foreground sm:text-3xl">
+              <h3 className="relative mt-6 font-display text-xl font-bold text-foreground sm:text-2xl">
                 {p.title}
               </h3>
-              <p className="relative mt-3 text-muted-foreground">{p.description}</p>
+              <p className="relative mt-3 text-sm text-muted-foreground">{p.description}</p>
 
               <div className="relative mt-5 flex flex-wrap gap-1.5">
                 {p.tags.map((t) => (
                   <span
                     key={t}
-                    className="rounded-full border border-primary/30 bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary-foreground/90"
+                    className="rounded-full border border-primary/30 bg-primary/10 px-2.5 py-1 text-xs font-medium text-foreground/80"
                   >
                     {t}
                   </span>
                 ))}
               </div>
-
             </article>
           ))}
         </div>
