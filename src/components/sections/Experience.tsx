@@ -1,6 +1,16 @@
-import { Briefcase, MapPin, Calendar } from "lucide-react";
+import { Briefcase, MapPin, Calendar, Sparkles } from "lucide-react";
 import { useReveal } from "@/hooks/use-reveal";
 import { cn } from "@/lib/utils";
+
+type Role = {
+  role: string;
+  company: string;
+  date: string;
+  location: string;
+  bullets: string[];
+  highlights?: string[];
+};
+
 
 const experience = [
   {
