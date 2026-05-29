@@ -1,8 +1,18 @@
-import { Briefcase, MapPin, Calendar } from "lucide-react";
+import { Briefcase, MapPin, Calendar, Sparkles } from "lucide-react";
 import { useReveal } from "@/hooks/use-reveal";
 import { cn } from "@/lib/utils";
 
-const experience = [
+type Role = {
+  role: string;
+  company: string;
+  date: string;
+  location: string;
+  bullets: string[];
+  highlights?: string[];
+};
+
+
+const experience: Role[] = [
   {
     role: "Cloud Engineering Intern",
     company: "Ntech",
@@ -14,6 +24,11 @@ const experience = [
       "Applied IP addressing, DNS, and routing to support infrastructure operations",
       "Supported security best practices including access control and system hardening",
       "Used command-line tools and scripts to manage and troubleshoot cloud resources",
+    ],
+    highlights: [
+      "Reduced server response time by ~15% through proactive system monitoring",
+      "Documented 10+ security hardening practices for Linux servers",
+      "Created an automated backup script using Bash for cloud storage",
     ],
   },
   {
@@ -127,6 +142,37 @@ const Experience = () => {
                           </li>
                         ))}
                       </ul>
+                      {e.highlights && (
+                        <div className="mt-5 rounded-xl border border-primary/30 bg-gradient-soft p-4">
+                          <div
+                            className={cn(
+                              "flex items-center gap-2 text-[11px] font-mono uppercase tracking-wider text-primary",
+                              right ? "" : "md:justify-end",
+                            )}
+                          >
+                            <Sparkles className="h-3.5 w-3.5" /> Key contributions
+                          </div>
+                          <ul
+                            className={cn(
+                              "mt-3 space-y-1.5 text-sm text-foreground/85",
+                              right ? "" : "md:text-right",
+                            )}
+                          >
+                            {e.highlights.map((h) => (
+                              <li
+                                key={h}
+                                className={cn(
+                                  "flex items-start gap-2",
+                                  right ? "" : "md:flex-row-reverse md:text-right",
+                                )}
+                              >
+                                <span className="text-primary">✓</span>
+                                <span>{h}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>

@@ -1,6 +1,13 @@
-import { Mail, MapPin, Phone, Send } from "lucide-react";
+import { Github, Globe, Linkedin, Mail, MapPin, Phone, Send } from "lucide-react";
 import { useReveal } from "@/hooks/use-reveal";
 import { cn } from "@/lib/utils";
+
+const socials = [
+  { icon: Mail, label: "Email", href: "mailto:emmanuelfaleti@outlook.com" },
+  { icon: Linkedin, label: "LinkedIn", href: "#" },
+  { icon: Github, label: "GitHub", href: "https://github.com/Emmy1223" },
+  { icon: Globe, label: "Portfolio", href: "#home" },
+];
 
 const Contact = () => {
   const { ref, visible } = useReveal();
@@ -45,9 +52,22 @@ const Contact = () => {
               />
             </div>
 
+            <div className="mt-8 flex items-center justify-center gap-2">
+              {socials.map((s) => (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  aria-label={s.label}
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-border bg-background/60 text-muted-foreground transition-all hover:scale-105 hover:border-primary/50 hover:text-primary"
+                >
+                  <s.icon className="h-4 w-4" />
+                </a>
+              ))}
+            </div>
+
             <a
               href="mailto:emmanuelfaleti@outlook.com"
-              className="mt-10 inline-flex items-center justify-center gap-2 rounded-full bg-gradient-primary px-8 py-3.5 text-sm font-semibold text-primary-foreground shadow-[0_0_40px_-8px_hsl(var(--primary)/0.7)] transition-transform hover:scale-[1.03]"
+              className="mt-8 inline-flex items-center justify-center gap-2 rounded-full bg-gradient-primary px-8 py-3.5 text-sm font-semibold text-primary-foreground shadow-[0_0_40px_-8px_hsl(var(--primary)/0.7)] transition-transform hover:scale-[1.03]"
             >
               <Send className="h-4 w-4" />
               Get In Touch
