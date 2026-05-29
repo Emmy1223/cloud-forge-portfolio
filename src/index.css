@@ -2,76 +2,128 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Faleti Emmanuel — Portfolio Design System
-   Dark theme, indigo base, blue→purple gradient accents, glassmorphism.
+/* Emmanuel Faleti — Premium Portfolio
+   Palette: White, Black, Gold. Supports light + dark theme.
    All colors MUST be HSL.
 */
 
 @layer base {
   :root {
-    /* Dark by default */
-    --background: 235 35% 6%;
-    --foreground: 220 25% 96%;
+    --background: 40 30% 98%;
+    --foreground: 0 0% 8%;
 
-    --card: 234 30% 9%;
-    --card-foreground: 220 25% 96%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 8%;
 
-    --popover: 234 30% 9%;
-    --popover-foreground: 220 25% 96%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 8%;
 
-    /* Brand: electric blue */
-    --primary: 224 90% 62%;
-    --primary-foreground: 220 25% 98%;
-    --primary-glow: 250 90% 70%;
+    /* Brand: Gold */
+    --primary: 42 70% 48%;
+    --primary-foreground: 0 0% 8%;
+    --primary-glow: 45 85% 62%;
 
-    /* Accent: vivid purple */
-    --accent: 268 85% 65%;
-    --accent-foreground: 220 25% 98%;
+    /* Accent: deeper gold / bronze */
+    --accent: 38 65% 42%;
+    --accent-foreground: 0 0% 100%;
 
-    --secondary: 234 25% 14%;
-    --secondary-foreground: 220 25% 96%;
+    --secondary: 40 20% 95%;
+    --secondary-foreground: 0 0% 12%;
 
-    --muted: 234 20% 13%;
-    --muted-foreground: 220 12% 65%;
+    --muted: 40 15% 94%;
+    --muted-foreground: 0 0% 38%;
 
-    --destructive: 0 75% 60%;
-    --destructive-foreground: 220 25% 98%;
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 234 25% 18%;
-    --input: 234 25% 18%;
-    --ring: 224 90% 62%;
+    --border: 40 15% 87%;
+    --input: 40 15% 87%;
+    --ring: 42 70% 48%;
 
     --radius: 1rem;
 
-    /* Glass surfaces */
-    --glass-bg: 234 35% 10% / 0.55;
-    --glass-border: 230 50% 70% / 0.12;
-    --glass-highlight: 230 80% 80% / 0.08;
+    /* Glass surfaces (light) */
+    --glass-bg: 0 0% 100% / 0.6;
+    --glass-border: 0 0% 0% / 0.08;
+    --glass-highlight: 0 0% 100% / 0.6;
 
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(224 90% 62%), hsl(268 85% 65%));
-    --gradient-soft: linear-gradient(135deg, hsl(224 90% 62% / 0.18), hsl(268 85% 65% / 0.18));
-    --gradient-text: linear-gradient(135deg, hsl(220 95% 80%), hsl(268 90% 78%) 50%, hsl(290 90% 80%));
-    --gradient-radial: radial-gradient(circle at 50% 0%, hsl(250 90% 30% / 0.35), transparent 60%);
+    --gradient-primary: linear-gradient(135deg, hsl(45 85% 58%), hsl(38 65% 42%));
+    --gradient-soft: linear-gradient(135deg, hsl(45 85% 58% / 0.15), hsl(38 65% 42% / 0.15));
+    --gradient-text: linear-gradient(135deg, hsl(38 70% 38%), hsl(42 75% 48%) 50%, hsl(45 85% 55%));
+    --gradient-radial: radial-gradient(circle at 50% 0%, hsl(45 85% 60% / 0.18), transparent 60%);
 
     /* Shadows / glows */
-    --shadow-glow: 0 0 60px -10px hsl(224 90% 62% / 0.55);
-    --shadow-glow-accent: 0 0 80px -10px hsl(268 85% 65% / 0.45);
-    --shadow-elegant: 0 20px 50px -20px hsl(235 60% 4% / 0.7);
-    --shadow-card: 0 10px 40px -15px hsl(235 60% 2% / 0.6);
+    --shadow-glow: 0 0 50px -10px hsl(42 75% 50% / 0.45);
+    --shadow-glow-accent: 0 0 70px -10px hsl(45 80% 55% / 0.35);
+    --shadow-elegant: 0 20px 50px -20px hsl(0 0% 0% / 0.18);
+    --shadow-card: 0 10px 30px -15px hsl(0 0% 0% / 0.12);
 
-    /* Motion */
     --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 
-    --sidebar-background: 234 30% 8%;
-    --sidebar-foreground: 220 25% 92%;
-    --sidebar-primary: 224 90% 62%;
-    --sidebar-primary-foreground: 220 25% 98%;
-    --sidebar-accent: 234 25% 14%;
-    --sidebar-accent-foreground: 220 25% 96%;
-    --sidebar-border: 234 25% 18%;
-    --sidebar-ring: 224 90% 62%;
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 0 0% 10%;
+    --sidebar-primary: 42 70% 48%;
+    --sidebar-primary-foreground: 0 0% 8%;
+    --sidebar-accent: 40 20% 95%;
+    --sidebar-accent-foreground: 0 0% 12%;
+    --sidebar-border: 40 15% 87%;
+    --sidebar-ring: 42 70% 48%;
+  }
+
+  .dark {
+    --background: 0 0% 5%;
+    --foreground: 40 25% 96%;
+
+    --card: 0 0% 8%;
+    --card-foreground: 40 25% 96%;
+
+    --popover: 0 0% 8%;
+    --popover-foreground: 40 25% 96%;
+
+    --primary: 45 80% 58%;
+    --primary-foreground: 0 0% 6%;
+    --primary-glow: 48 90% 68%;
+
+    --accent: 38 70% 50%;
+    --accent-foreground: 0 0% 6%;
+
+    --secondary: 0 0% 11%;
+    --secondary-foreground: 40 25% 96%;
+
+    --muted: 0 0% 11%;
+    --muted-foreground: 40 10% 65%;
+
+    --destructive: 0 75% 60%;
+    --destructive-foreground: 40 25% 96%;
+
+    --border: 45 15% 18%;
+    --input: 45 15% 18%;
+    --ring: 45 80% 58%;
+
+    --glass-bg: 0 0% 7% / 0.6;
+    --glass-border: 45 60% 70% / 0.14;
+    --glass-highlight: 45 70% 80% / 0.06;
+
+    --gradient-primary: linear-gradient(135deg, hsl(45 85% 60%), hsl(38 70% 45%));
+    --gradient-soft: linear-gradient(135deg, hsl(45 85% 60% / 0.18), hsl(38 70% 45% / 0.18));
+    --gradient-text: linear-gradient(135deg, hsl(45 90% 72%), hsl(42 85% 60%) 50%, hsl(38 80% 55%));
+    --gradient-radial: radial-gradient(circle at 50% 0%, hsl(45 85% 30% / 0.35), transparent 60%);
+
+    --shadow-glow: 0 0 60px -10px hsl(45 85% 55% / 0.55);
+    --shadow-glow-accent: 0 0 80px -10px hsl(38 80% 50% / 0.45);
+    --shadow-elegant: 0 20px 50px -20px hsl(0 0% 0% / 0.7);
+    --shadow-card: 0 10px 40px -15px hsl(0 0% 0% / 0.6);
+
+    --sidebar-background: 0 0% 7%;
+    --sidebar-foreground: 40 25% 92%;
+    --sidebar-primary: 45 80% 58%;
+    --sidebar-primary-foreground: 0 0% 6%;
+    --sidebar-accent: 0 0% 11%;
+    --sidebar-accent-foreground: 40 25% 96%;
+    --sidebar-border: 45 15% 18%;
+    --sidebar-ring: 45 80% 58%;
   }
 }
 
@@ -88,10 +140,18 @@
     @apply bg-background text-foreground antialiased;
     font-family: "Inter", system-ui, -apple-system, sans-serif;
     background-image:
-      radial-gradient(ellipse 80% 50% at 50% -10%, hsl(250 90% 25% / 0.35), transparent 60%),
-      radial-gradient(ellipse 60% 40% at 100% 30%, hsl(224 90% 25% / 0.25), transparent 60%),
-      radial-gradient(ellipse 60% 40% at 0% 70%, hsl(268 85% 25% / 0.22), transparent 60%);
+      radial-gradient(ellipse 80% 50% at 50% -10%, hsl(45 85% 65% / 0.18), transparent 60%),
+      radial-gradient(ellipse 60% 40% at 100% 30%, hsl(42 75% 55% / 0.10), transparent 60%),
+      radial-gradient(ellipse 60% 40% at 0% 70%, hsl(38 65% 50% / 0.08), transparent 60%);
     background-attachment: fixed;
+    transition: background-color 0.4s ease, color 0.4s ease;
+  }
+
+  .dark body {
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -10%, hsl(45 85% 30% / 0.30), transparent 60%),
+      radial-gradient(ellipse 60% 40% at 100% 30%, hsl(38 75% 25% / 0.22), transparent 60%),
+      radial-gradient(ellipse 60% 40% at 0% 70%, hsl(42 70% 25% / 0.18), transparent 60%);
   }
 
   h1, h2, h3, h4 {
@@ -115,7 +175,7 @@
   }
 
   .glass-strong {
-    background: hsl(234 35% 10% / 0.75);
+    background: hsl(var(--glass-bg));
     backdrop-filter: blur(24px) saturate(160%);
     -webkit-backdrop-filter: blur(24px) saturate(160%);
     border: 1px solid hsl(var(--glass-border));

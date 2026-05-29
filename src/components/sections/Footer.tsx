@@ -6,10 +6,10 @@ const Footer = () => {
       <div className="container-tight flex flex-col items-center justify-between gap-5 sm:flex-row">
         <div className="flex items-center gap-2.5">
           <span className="flex h-8 w-8 items-center justify-center rounded-md bg-gradient-primary font-display text-xs font-bold text-primary-foreground">
-            FE
+            EF
           </span>
           <span className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Faleti Emmanuel. All rights reserved.
+            © {new Date().getFullYear()} Emmanuel Faleti. All rights reserved.
           </span>
         </div>
         <div className="flex items-center gap-2">

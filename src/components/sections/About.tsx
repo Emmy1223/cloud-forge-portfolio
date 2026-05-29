@@ -22,15 +22,14 @@ const About = () => {
           </h2>
           <div className="mt-6 space-y-5 text-base leading-relaxed text-muted-foreground sm:text-lg">
             <p>
-              I am a tech-driven IT and cloud enthusiast with hands-on experience in cloud
-              infrastructure, Linux environments, and system monitoring. I focus on building
-              scalable systems and understanding how cloud platforms operate in real-world
-              environments.
+              I'm a Cybersecurity undergraduate and Cloud Engineering Intern with hands-on experience
+              in AWS cloud infrastructure, Linux administration, networking, and security fundamentals.
+              I work with services like EC2, S3, IAM, VPC, route tables, load balancers, and the AWS CLI.
             </p>
             <p>
-              I work with cloud tools, automate processes using Python, and apply cybersecurity
-              fundamentals to build secure and reliable systems. I also have experience in remote
-              operations, application testing, and workflow optimization.
+              I'm familiar with security tools such as Nmap and Wireshark, and I'm committed to applying
+              cybersecurity best practices. Alongside infrastructure, I have experience in remote
+              operations, technical support, and application testing.
             </p>
           </div>
         </div>
@@ -59,7 +58,7 @@ const About = () => {
 
             <div className="mt-6 rounded-xl border border-border bg-background/40 p-4 font-mono text-xs leading-relaxed text-muted-foreground">
               <span className="text-primary">$</span> whoami<br />
-              <span className="text-foreground">→ cloud-engineer · security-enthusiast</span>
+              <span className="text-foreground">→ emmanuel · cloud-intern · security-undergrad</span>
               <br />
               <span className="text-primary">$</span> mission<br />
               <span className="text-foreground">→ ship resilient infra, secure by default.</span>

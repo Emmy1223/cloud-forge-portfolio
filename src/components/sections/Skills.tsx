@@ -6,22 +6,22 @@ const skills = [
   {
     icon: Cloud,
     title: "Cloud & Infrastructure",
-    items: ["AWS EC2", "S3", "IAM", "Linux"],
+    items: ["AWS EC2", "S3", "IAM", "VPC", "Load Balancers", "AWS CLI", "Linux"],
   },
   {
     icon: Shield,
     title: "Networking & Security",
-    items: ["IP Addressing", "DNS", "Routing", "Access Control"],
+    items: ["TCP/IP", "DNS", "VPN", "OSI", "Access Control", "Nmap", "Wireshark"],
   },
   {
     icon: Code2,
-    title: "Development & Tools",
+    title: "Programming & Tools",
     items: ["Python", "Bash", "Git", "GitHub", "HTML", "CSS"],
   },
   {
     icon: Activity,
-    title: "Operations & Support",
-    items: ["System Monitoring", "UI/UX Testing", "Bug Reporting"],
+    title: "Operations & QA",
+    items: ["System Monitoring", "App Testing", "Bug Reporting", "Virtual Assistance"],
   },
 ];
 

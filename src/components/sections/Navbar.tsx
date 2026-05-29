@@ -36,12 +36,12 @@ const Navbar = () => {
           scrolled ? "glass-strong py-2.5" : "py-3",
         )}
       >
-        <a href="#home" className="flex items-center gap-2.5 group">
+        <a href="#home" className="flex items-center gap-2.5 group ml-12 md:ml-14">
           <span className="relative flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-primary font-display text-sm font-bold text-primary-foreground shadow-[0_0_24px_-4px_hsl(var(--primary)/0.6)] transition-transform group-hover:scale-105">
-            FE
+            EF
           </span>
           <span className="hidden font-display text-sm font-semibold tracking-tight text-foreground/90 sm:block">
-            Faleti Emmanuel
+            Emmanuel Faleti
           </span>
         </a>
 

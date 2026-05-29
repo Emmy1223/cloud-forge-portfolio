@@ -8,10 +8,12 @@ import Education from "@/components/sections/Education";
 import Certifications from "@/components/sections/Certifications";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const Index = () => {
   return (
     <div className="relative min-h-screen overflow-hidden">
+      <ThemeToggle />
       <Navbar />
       <main>
         <Hero />
@@ -29,3 +31,4 @@ const Index = () => {
 };
 
 export default Index;
+
