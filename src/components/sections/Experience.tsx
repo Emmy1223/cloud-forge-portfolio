@@ -142,6 +142,37 @@ const Experience = () => {
                           </li>
                         ))}
                       </ul>
+                      {e.highlights && (
+                        <div className="mt-5 rounded-xl border border-primary/30 bg-gradient-soft p-4">
+                          <div
+                            className={cn(
+                              "flex items-center gap-2 text-[11px] font-mono uppercase tracking-wider text-primary",
+                              right ? "" : "md:justify-end",
+                            )}
+                          >
+                            <Sparkles className="h-3.5 w-3.5" /> Key contributions
+                          </div>
+                          <ul
+                            className={cn(
+                              "mt-3 space-y-1.5 text-sm text-foreground/85",
+                              right ? "" : "md:text-right",
+                            )}
+                          >
+                            {e.highlights.map((h) => (
+                              <li
+                                key={h}
+                                className={cn(
+                                  "flex items-start gap-2",
+                                  right ? "" : "md:flex-row-reverse md:text-right",
+                                )}
+                              >
+                                <span className="text-primary">✓</span>
+                                <span>{h}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
