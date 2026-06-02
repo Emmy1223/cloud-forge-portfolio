@@ -1,66 +1,32 @@
-import { Activity, Cloud, Code2, Shield, Users } from "lucide-react";
+import { Cloud, Code2, Network, Shield, TestTube2 } from "lucide-react";
 import { useReveal } from "@/hooks/use-reveal";
 import { cn } from "@/lib/utils";
 
-type Level = "Proficient" | "Familiar" | "Beginner";
-
-const levelStyles: Record<Level, string> = {
-  Proficient: "border-primary/50 bg-primary/15 text-foreground",
-  Familiar: "border-primary/25 bg-primary/5 text-foreground/85",
-  Beginner: "border-border bg-background/60 text-muted-foreground",
-};
-
-const groups: { icon: typeof Cloud; title: string; items: { name: string; level: Level }[] }[] = [
+const groups: { icon: typeof Cloud; title: string; items: string[] }[] = [
   {
     icon: Cloud,
-    title: "Cloud & Networking",
-    items: [
-      { name: "AWS EC2", level: "Proficient" },
-      { name: "AWS S3", level: "Proficient" },
-      { name: "AWS IAM", level: "Proficient" },
-      { name: "Linux CLI", level: "Proficient" },
-      { name: "VPC", level: "Familiar" },
-      { name: "Load Balancers", level: "Familiar" },
-      { name: "IP / DNS / Routing", level: "Familiar" },
-      { name: "Route Tables", level: "Beginner" },
-      { name: "AWS CLI (advanced)", level: "Beginner" },
-    ],
+    title: "Cloud & Infrastructure",
+    items: ["AWS EC2", "AWS S3", "AWS IAM", "VPC", "Load Balancers", "Linux", "AWS CLI"],
+  },
+  {
+    icon: Network,
+    title: "Networking",
+    items: ["TCP/IP", "DNS", "VPNs", "OSI Model", "Routing", "IP Addressing"],
   },
   {
     icon: Shield,
-    title: "Security & Testing",
-    items: [
-      { name: "Nmap", level: "Proficient" },
-      { name: "Access Control", level: "Familiar" },
-      { name: "System Hardening", level: "Familiar" },
-      { name: "Wireshark", level: "Familiar" },
-      { name: "Bug Reporting", level: "Proficient" },
-      { name: "UI/UX Analysis", level: "Familiar" },
-    ],
+    title: "Security",
+    items: ["IAM", "Access Control", "System Hardening", "Nmap", "Wireshark"],
   },
   {
     icon: Code2,
-    title: "Tools & Languages",
-    items: [
-      { name: "Bash", level: "Proficient" },
-      { name: "Git", level: "Proficient" },
-      { name: "GitHub", level: "Proficient" },
-      { name: "Command Line", level: "Proficient" },
-      { name: "Python", level: "Familiar" },
-      { name: "HTML / CSS", level: "Familiar" },
-    ],
+    title: "Dev & Scripting",
+    items: ["Python", "Bash", "HTML", "CSS", "Git", "GitHub"],
   },
   {
-    icon: Users,
-    title: "Admin & Productivity",
-    items: [
-      { name: "Virtual Assistance", level: "Proficient" },
-      { name: "Email / Calendar", level: "Proficient" },
-      { name: "Google Workspace", level: "Proficient" },
-      { name: "MS Office", level: "Proficient" },
-      { name: "Web Research", level: "Proficient" },
-      { name: "Data Entry", level: "Proficient" },
-    ],
+    icon: TestTube2,
+    title: "Testing",
+    items: ["App Testing", "Bug Reporting", "QA", "UI/UX Analysis"],
   },
 ];
 
@@ -79,17 +45,6 @@ const Skills = () => {
           <p className="mt-4 text-muted-foreground">
             From provisioning to monitoring, security fundamentals to remote operations.
           </p>
-
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-2 text-xs text-muted-foreground">
-            {(Object.keys(levelStyles) as Level[]).map((lv) => (
-              <span
-                key={lv}
-                className={cn("rounded-full border px-2.5 py-1 font-medium", levelStyles[lv])}
-              >
-                {lv}
-              </span>
-            ))}
-          </div>
         </div>
 
         <div className="mt-14 grid gap-5 sm:grid-cols-2">
@@ -108,17 +63,13 @@ const Skills = () => {
                 </div>
                 <h3 className="font-display text-lg font-semibold text-foreground">{g.title}</h3>
               </div>
-              <div className="mt-5 flex flex-wrap gap-1.5">
+              <div className="mt-5 flex flex-wrap gap-2">
                 {g.items.map((it) => (
                   <span
-                    key={it.name}
-                    title={it.level}
-                    className={cn(
-                      "rounded-full border px-2.5 py-1 text-xs font-medium transition-colors",
-                      levelStyles[it.level],
-                    )}
+                    key={it}
+                    className="cursor-default rounded-full border border-primary/25 bg-primary/10 px-3 py-1 text-xs font-medium text-foreground transition-all hover:-translate-y-0.5 hover:border-primary/60 hover:bg-primary/20 hover:text-primary hover:shadow-[0_0_18px_-4px_hsl(var(--primary)/0.8)]"
                   >
-                    {it.name}
+                    {it}
                   </span>
                 ))}
               </div>

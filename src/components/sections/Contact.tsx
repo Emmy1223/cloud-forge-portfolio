@@ -67,10 +67,12 @@ const Contact = () => {
 
             <a
               href="mailto:emmanuelfaleti@outlook.com"
-              className="mt-8 inline-flex items-center justify-center gap-2 rounded-full bg-gradient-primary px-8 py-3.5 text-sm font-semibold text-primary-foreground shadow-[0_0_40px_-8px_hsl(var(--primary)/0.7)] transition-transform hover:scale-[1.03]"
+              className="group relative mt-8 inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-gradient-primary px-8 py-3.5 text-sm font-semibold text-primary-foreground shadow-[0_0_40px_-8px_hsl(var(--primary)/0.7)] transition-transform hover:scale-[1.04] hover:shadow-[0_0_60px_-4px_hsl(var(--primary)/0.9)]"
             >
-              <Send className="h-4 w-4" />
-              Get In Touch
+              <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+              <span className="pointer-events-none absolute inset-0 rounded-full opacity-0 ring-2 ring-primary/60 transition-all duration-500 group-hover:scale-110 group-hover:opacity-100" />
+              <Send className="relative h-4 w-4" />
+              <span className="relative">Get In Touch</span>
             </a>
           </div>
         </div>

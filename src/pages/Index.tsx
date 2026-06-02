@@ -12,12 +12,14 @@ import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
 import ThemeToggle from "@/components/ThemeToggle";
 import DownloadResume from "@/components/DownloadResume";
+import AmbientSound from "@/components/AmbientSound";
 
 const Index = () => {
   return (
     <div className="relative min-h-screen overflow-hidden">
       <ThemeToggle />
       <DownloadResume />
+      <AmbientSound />
       <Navbar />
       <main>
         <Hero />

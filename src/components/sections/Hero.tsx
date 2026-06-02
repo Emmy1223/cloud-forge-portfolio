@@ -1,50 +1,54 @@
-import { ArrowRight, ChevronDown, Cloud, Server, Shield } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ArrowRight, ChevronDown } from "lucide-react";
+import StarField from "@/components/StarField";
+
+const SUBTITLE = "Cloud Engineer & Cybersecurity";
 
 const Hero = () => {
+  const [typed, setTyped] = useState("");
+
+  useEffect(() => {
+    // Wait for the cinematic name reveal, then typewrite the subtitle
+    const startDelay = 1800;
+    let i = 0;
+    let id: number;
+    const begin = window.setTimeout(() => {
+      id = window.setInterval(() => {
+        i += 1;
+        setTyped(SUBTITLE.slice(0, i));
+        if (i >= SUBTITLE.length) window.clearInterval(id);
+      }, 55);
+    }, startDelay);
+    return () => {
+      window.clearTimeout(begin);
+      window.clearInterval(id);
+    };
+  }, []);
+
   return (
     <section
       id="home"
       className="relative flex min-h-screen items-center justify-center overflow-hidden pt-28"
     >
-      {/* Ambient blobs */}
+      {/* Vignette + drifting starfield */}
       <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute left-1/2 top-1/3 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/30 blur-3xl animate-blob" />
-        <div className="absolute right-[8%] top-[18%] h-[360px] w-[360px] rounded-full bg-accent/25 blur-3xl animate-blob [animation-delay:-6s]" />
-        <div className="absolute left-[6%] bottom-[12%] h-[320px] w-[320px] rounded-full bg-primary-glow/20 blur-3xl animate-blob [animation-delay:-12s]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,hsl(var(--background))_85%)]" />
+        <StarField />
       </div>
 
-      {/* Grid overlay */}
+      {/* Faint grid */}
       <div
-        className="pointer-events-none absolute inset-0 -z-10 opacity-[0.07]"
+        className="pointer-events-none absolute inset-0 -z-10 opacity-[0.06]"
         style={{
           backgroundImage:
-            "linear-gradient(hsl(var(--foreground)/0.4) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)/0.4) 1px, transparent 1px)",
-          backgroundSize: "56px 56px",
-          maskImage: "radial-gradient(ellipse 70% 50% at 50% 30%, black 40%, transparent 80%)",
+            "linear-gradient(hsl(var(--foreground)/0.5) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)/0.5) 1px, transparent 1px)",
+          backgroundSize: "64px 64px",
+          maskImage: "radial-gradient(ellipse 70% 50% at 50% 35%, black 30%, transparent 80%)",
         }}
       />
 
-      {/* Floating abstract icons */}
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute left-[10%] top-[26%] animate-float-slow opacity-40">
-          <div className="glass flex h-14 w-14 items-center justify-center rounded-2xl">
-            <Cloud className="h-6 w-6 text-primary" />
-          </div>
-        </div>
-        <div className="absolute right-[12%] top-[22%] animate-float opacity-40 [animation-delay:-2s]">
-          <div className="glass flex h-14 w-14 items-center justify-center rounded-2xl">
-            <Shield className="h-6 w-6 text-accent" />
-          </div>
-        </div>
-        <div className="absolute right-[18%] bottom-[24%] animate-float-slow opacity-40 [animation-delay:-4s]">
-          <div className="glass flex h-14 w-14 items-center justify-center rounded-2xl">
-            <Server className="h-6 w-6 text-primary-glow" />
-          </div>
-        </div>
-      </div>
-
       <div className="container-tight relative">
-        <div className="mx-auto max-w-4xl text-center">
+        <div className="mx-auto max-w-5xl text-center">
           <div className="animate-fade-in inline-flex items-center gap-2 rounded-full border border-border bg-secondary/40 px-4 py-1.5 text-xs font-medium text-muted-foreground backdrop-blur">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary/70 opacity-75" />
@@ -53,21 +57,28 @@ const Hero = () => {
             Available for cloud & security roles
           </div>
 
-          <h1 className="animate-fade-in-slow mt-6 font-display text-5xl font-bold leading-[1.05] tracking-tight text-foreground sm:text-6xl md:text-7xl lg:text-8xl [animation-delay:120ms]">
-            <span className="block">Emmanuel</span>
-            <span className="block text-gradient">Faleti</span>
+          {/* Cinematic name reveal — words zoom in from depth */}
+          <h1 className="mt-8 font-display text-6xl font-bold leading-[0.95] tracking-tight text-foreground sm:text-7xl md:text-8xl lg:text-9xl">
+            <span className="block animate-cinematic-zoom [animation-delay:200ms] [animation-fill-mode:both]">
+              Emmanuel
+            </span>
+            <span className="mt-2 block text-gradient animate-cinematic-zoom [animation-delay:900ms] [animation-fill-mode:both] drop-shadow-[0_0_28px_hsl(var(--primary)/0.45)]">
+              Faleti
+            </span>
           </h1>
 
-          <p className="animate-fade-in mt-6 text-lg font-medium text-foreground/80 sm:text-xl [animation-delay:280ms]">
-            Cloud Engineering Intern <span className="text-muted-foreground">&</span> Cybersecurity Undergraduate
+          {/* Typewriter subtitle */}
+          <p className="mx-auto mt-8 h-7 max-w-2xl text-lg font-medium text-foreground/85 sm:text-xl">
+            <span>{typed}</span>
+            <span className="ml-0.5 inline-block h-5 w-[2px] translate-y-0.5 bg-primary animate-cursor-blink align-middle" />
           </p>
 
-          <p className="animate-fade-in mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg [animation-delay:380ms]">
-            Hands-on with AWS (EC2, S3, IAM, VPC), Linux administration, and networking. Passionate
-            about building secure, scalable cloud systems and applying cybersecurity best practices.
+          <p className="animate-fade-in mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg [animation-delay:2200ms] [animation-fill-mode:both]">
+            Hands-on with AWS (EC2, S3, IAM, VPC), Linux administration, and networking.
+            Building secure, scalable cloud systems with a cybersecurity-first mindset.
           </p>
 
-          <div className="animate-fade-in mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row [animation-delay:480ms]">
+          <div className="animate-fade-in mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row [animation-delay:2500ms] [animation-fill-mode:both]">
             <a
               href="#projects"
               className="group inline-flex items-center justify-center gap-2 rounded-full bg-gradient-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground shadow-[0_0_40px_-8px_hsl(var(--primary)/0.7)] transition-transform hover:scale-[1.03]"
