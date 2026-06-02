@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
+import profileLogo from "@/assets/emmys-media-logo.jpg.asset.json";
 
 const links = [
   { href: "#about", label: "About" },
@@ -37,8 +38,8 @@ const Navbar = () => {
         )}
       >
         <a href="#home" className="flex items-center gap-2.5 group ml-12 md:ml-14">
-          <span className="relative flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-primary font-display text-sm font-bold text-primary-foreground shadow-[0_0_24px_-4px_hsl(var(--primary)/0.6)] transition-transform group-hover:scale-105">
-            EF
+          <span className="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-lg ring-1 ring-border shadow-[0_0_24px_-4px_hsl(var(--primary)/0.6)] transition-transform group-hover:scale-105">
+            <img src={profileLogo.url} alt="Emmanuel Faleti logo" className="h-full w-full object-cover" />
           </span>
           <span className="hidden font-display text-sm font-semibold tracking-tight text-foreground/90 sm:block">
             Emmanuel Faleti
