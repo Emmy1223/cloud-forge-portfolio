@@ -56,13 +56,14 @@ const CodeRain = () => {
       ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
 
       ctx.font = `${fontSize}px "JetBrains Mono", ui-monospace, monospace`;
+      const primaryRaw = getComputedStyle(document.documentElement).getPropertyValue("--primary").trim() || "45 80% 58%";
+      const primary = primaryRaw.replace(/\s+/g, ", ");
       for (let i = 0; i < drops.length; i++) {
         const glyph = pickGlyph();
         const x = i * fontSize;
         const y = drops[i] * fontSize;
         const alpha = 0.05 + Math.random() * 0.10; // 5–15%
-        const primary = getComputedStyle(document.documentElement).getPropertyValue("--primary").trim() || "45 80% 58%";
-        ctx.fillStyle = `hsla(${primary.replace(/\s+/g, ", ")}, ${alpha})`;
+        ctx.fillStyle = `hsla(${primary}, ${alpha})`;
         ctx.fillText(glyph, x, y);
 
         if (y > window.innerHeight && Math.random() > 0.975) {
