@@ -1,39 +1,62 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Volume2, VolumeX } from "lucide-react";
 
-const AUDIO_SRC = "https://cdn.pixabay.com/audio/2022/03/15/audio_8cb749f5d2.mp3";
-const FALLBACK_SRC = "https://cdn.pixabay.com/audio/2023/01/23/audio_26e4a2a5c7.mp3";
-
-/** Floating ambient mode toggle. Uses HTML5 <audio> for a looping solemn piano track. */
+/** Floating ambient mode toggle. Uses Web Audio API oscillators — no external files. */
 const AmbientSound = () => {
   const [playing, setPlaying] = useState(false);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const ctxRef = useRef<AudioContext | null>(null);
+  const intervalRef = useRef<number | null>(null);
+
+  const playAmbientTone = () => {
+    const ctx = ctxRef.current;
+    if (!ctx) return;
+    const notes = [261.63, 329.63, 392.0, 523.25];
+    notes.forEach((freq, i) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.type = "sine";
+      osc.frequency.value = freq;
+      const start = ctx.currentTime + i * 1.5;
+      gain.gain.setValueAtTime(0, start);
+      gain.gain.linearRampToValueAtTime(0.06, start + 2);
+      gain.gain.linearRampToValueAtTime(0, start + 6);
+      osc.start(start);
+      osc.stop(start + 6);
+    });
+  };
 
   const toggle = () => {
-    let audio = audioRef.current;
-    if (!audio) {
-      audio = new Audio(AUDIO_SRC);
-      audio.loop = true;
-      audio.volume = 0.4;
-      audio.onerror = () => {
-        // Fallback if primary fails
-        const fallback = new Audio(FALLBACK_SRC);
-        fallback.loop = true;
-        fallback.volume = 0.4;
-        fallback.play().catch(() => {});
-        audioRef.current = fallback;
-      };
-      audioRef.current = audio;
+    if (playing) {
+      if (intervalRef.current !== null) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+      setPlaying(false);
+      return;
     }
 
-    if (playing) {
-      audio.pause();
-      setPlaying(false);
-    } else {
-      audio.play().catch(() => {});
-      setPlaying(true);
+    if (!ctxRef.current) {
+      const Ctor =
+        window.AudioContext ||
+        (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+      ctxRef.current = new Ctor();
     }
+
+    ctxRef.current.resume().then(() => {
+      playAmbientTone();
+      intervalRef.current = window.setInterval(playAmbientTone, 8000);
+      setPlaying(true);
+    });
   };
+
+  useEffect(() => {
+    return () => {
+      if (intervalRef.current !== null) clearInterval(intervalRef.current);
+      ctxRef.current?.close().catch(() => {});
+    };
+  }, []);
 
   return (
     <button
