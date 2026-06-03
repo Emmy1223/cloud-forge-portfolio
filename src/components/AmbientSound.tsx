@@ -1,72 +1,36 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Volume2, VolumeX } from "lucide-react";
 
-/** Floating ambient mode toggle. Uses Web Audio API to synthesize a soft cinematic pad. */
+const AUDIO_SRC = "https://cdn.pixabay.com/audio/2022/03/15/audio_8cb749f5d2.mp3";
+const FALLBACK_SRC = "https://cdn.pixabay.com/audio/2023/01/23/audio_26e4a2a5c7.mp3";
+
+/** Floating ambient mode toggle. Uses HTML5 <audio> for a looping solemn piano track. */
 const AmbientSound = () => {
   const [playing, setPlaying] = useState(false);
-  const ctxRef = useRef<AudioContext | null>(null);
-  const nodesRef = useRef<{ osc: OscillatorNode[]; gain: GainNode } | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  const start = async () => {
-    const AC: typeof AudioContext =
-      window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
-    const ctx = ctxRef.current ?? new AC();
-    ctxRef.current = ctx;
-    if (ctx.state === "suspended") await ctx.resume();
+  const toggle = () => {
+    let audio = audioRef.current;
+    if (!audio) {
+      audio = new Audio(AUDIO_SRC);
+      audio.loop = true;
+      audio.volume = 0.4;
+      audio.onerror = () => {
+        // Fallback if primary fails
+        const fallback = new Audio(FALLBACK_SRC);
+        fallback.loop = true;
+        fallback.volume = 0.4;
+        fallback.play().catch(() => {});
+        audioRef.current = fallback;
+      };
+      audioRef.current = audio;
+    }
 
-    const gain = ctx.createGain();
-    gain.gain.value = 0;
-    gain.connect(ctx.destination);
-
-    // Soft low cinematic pad — slightly detuned sine voices
-    const freqs = [110, 165.0, 220, 277.18]; // A2, E3-ish, A3, C#4
-    const osc = freqs.map((f, i) => {
-      const o = ctx.createOscillator();
-      o.type = i === 0 ? "sine" : "triangle";
-      o.frequency.value = f;
-      // slow LFO via detune
-      const lfo = ctx.createOscillator();
-      const lfoGain = ctx.createGain();
-      lfo.frequency.value = 0.05 + i * 0.03;
-      lfoGain.gain.value = 4;
-      lfo.connect(lfoGain).connect(o.detune);
-      lfo.start();
-      o.connect(gain);
-      o.start();
-      return o;
-    });
-
-    // fade in
-    gain.gain.linearRampToValueAtTime(0.05, ctx.currentTime + 1.4);
-    nodesRef.current = { osc, gain };
-  };
-
-  const stop = () => {
-    const ctx = ctxRef.current;
-    const nodes = nodesRef.current;
-    if (!ctx || !nodes) return;
-    nodes.gain.gain.cancelScheduledValues(ctx.currentTime);
-    nodes.gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.6);
-    setTimeout(() => {
-      nodes.osc.forEach((o) => {
-        try {
-          o.stop();
-          o.disconnect();
-        } catch {}
-      });
-      nodes.gain.disconnect();
-      nodesRef.current = null;
-    }, 700);
-  };
-
-  useEffect(() => () => stop(), []);
-
-  const toggle = async () => {
     if (playing) {
-      stop();
+      audio.pause();
       setPlaying(false);
     } else {
-      await start();
+      audio.play().catch(() => {});
       setPlaying(true);
     }
   };

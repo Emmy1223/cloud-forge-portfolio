@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import StarField from "@/components/StarField";
 
-const SUBTITLE = "Cloud Engineer & Cybersecurity";
+const SUBTITLE = "Cloud Engineer and Cybersecurity Enthusiast";
 
 const Hero = () => {
   const [typed, setTyped] = useState("");
