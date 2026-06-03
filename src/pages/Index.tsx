@@ -13,10 +13,12 @@ import Footer from "@/components/sections/Footer";
 import ThemeToggle from "@/components/ThemeToggle";
 import DownloadResume from "@/components/DownloadResume";
 import AmbientSound from "@/components/AmbientSound";
+import CodeRain from "@/components/CodeRain";
 
 const Index = () => {
   return (
     <div className="relative min-h-screen overflow-hidden">
+      <CodeRain />
       <ThemeToggle />
       <DownloadResume />
       <AmbientSound />
