@@ -4,6 +4,7 @@ import About from "@/components/sections/About";
 import TechMarquee from "@/components/sections/TechMarquee";
 import Skills from "@/components/sections/Skills";
 import Projects from "@/components/sections/Projects";
+import GitHubActivity from "@/components/sections/GitHubActivity";
 import Experience from "@/components/sections/Experience";
 import Education from "@/components/sections/Education";
 import Certifications from "@/components/sections/Certifications";
@@ -29,6 +30,7 @@ const Index = () => {
         <About />
         <Skills />
         <Projects />
+        <GitHubActivity />
         <Experience />
         <Education />
         <Certifications />
