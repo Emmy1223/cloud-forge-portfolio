@@ -1,62 +1,35 @@
 import { useEffect, useRef, useState } from "react";
 import { Volume2, VolumeX } from "lucide-react";
 
-/** Floating ambient mode toggle. Uses Web Audio API oscillators — no external files. */
+const AUDIO_SRC =
+  "https://archive.org/download/prelude-and-fugue-no.-1-in-c-major-bwv-846-from-bachs-well-tempered-clavier-gulda-pianist/Prelude%20and%20Fugue%20No.%201%20in%20C%20major%2C%20BWV%20846%2C%20from%20Bachs%20Well-tempered%20Clavier%2C%20Gulda%20pianist.mp3";
+
 const AmbientSound = () => {
   const [playing, setPlaying] = useState(false);
-  const ctxRef = useRef<AudioContext | null>(null);
-  const intervalRef = useRef<number | null>(null);
-
-  const playAmbientTone = () => {
-    const ctx = ctxRef.current;
-    if (!ctx) return;
-    const notes = [261.63, 329.63, 392.0, 523.25];
-    notes.forEach((freq, i) => {
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.type = "sine";
-      osc.frequency.value = freq;
-      const start = ctx.currentTime + i * 1.5;
-      gain.gain.setValueAtTime(0, start);
-      gain.gain.linearRampToValueAtTime(0.06, start + 2);
-      gain.gain.linearRampToValueAtTime(0, start + 6);
-      osc.start(start);
-      osc.stop(start + 6);
-    });
-  };
-
-  const toggle = () => {
-    if (playing) {
-      if (intervalRef.current !== null) {
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
-      }
-      setPlaying(false);
-      return;
-    }
-
-    if (!ctxRef.current) {
-      const Ctor =
-        window.AudioContext ||
-        (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
-      ctxRef.current = new Ctor();
-    }
-
-    ctxRef.current.resume().then(() => {
-      playAmbientTone();
-      intervalRef.current = window.setInterval(playAmbientTone, 8000);
-      setPlaying(true);
-    });
-  };
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
+    const audio = new Audio(AUDIO_SRC);
+    audio.loop = true;
+    audio.volume = 0.4;
+    audio.preload = "auto";
+    audioRef.current = audio;
     return () => {
-      if (intervalRef.current !== null) clearInterval(intervalRef.current);
-      ctxRef.current?.close().catch(() => {});
+      audio.pause();
+      audioRef.current = null;
     };
   }, []);
+
+  const toggle = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    if (audio.paused) {
+      audio.play().then(() => setPlaying(true)).catch(() => setPlaying(false));
+    } else {
+      audio.pause();
+      setPlaying(false);
+    }
+  };
 
   return (
     <button
