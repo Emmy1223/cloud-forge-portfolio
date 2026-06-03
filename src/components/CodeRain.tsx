@@ -61,7 +61,8 @@ const CodeRain = () => {
         const x = i * fontSize;
         const y = drops[i] * fontSize;
         const alpha = 0.05 + Math.random() * 0.10; // 5–15%
-        ctx.fillStyle = `hsla(var(--primary), ${alpha})`;
+        const primary = getComputedStyle(document.documentElement).getPropertyValue("--primary").trim() || "45 80% 58%";
+        ctx.fillStyle = `hsla(${primary.replace(/\s+/g, ", ")}, ${alpha})`;
         ctx.fillText(glyph, x, y);
 
         if (y > window.innerHeight && Math.random() > 0.975) {
