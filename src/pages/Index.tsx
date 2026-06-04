@@ -15,6 +15,7 @@ import ThemeToggle from "@/components/ThemeToggle";
 import DownloadResume from "@/components/DownloadResume";
 import AmbientSound from "@/components/AmbientSound";
 import CodeRain from "@/components/CodeRain";
+import Terminal from "@/components/Terminal";
 
 const Index = () => {
   return (
@@ -23,6 +24,7 @@ const Index = () => {
       <ThemeToggle />
       <DownloadResume />
       <AmbientSound />
+      <Terminal />
       <Navbar />
       <main>
         <Hero />
