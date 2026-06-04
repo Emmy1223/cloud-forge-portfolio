@@ -21,6 +21,7 @@ const Index = () => {
   return (
     <div className="relative min-h-screen overflow-hidden">
       <CodeRain />
+      <ClickSound />
       <ThemeToggle />
       <DownloadResume />
       <AmbientSound />
