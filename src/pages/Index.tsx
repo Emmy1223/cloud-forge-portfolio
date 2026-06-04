@@ -14,6 +14,7 @@ import Footer from "@/components/sections/Footer";
 import ThemeToggle from "@/components/ThemeToggle";
 import DownloadResume from "@/components/DownloadResume";
 import AmbientSound from "@/components/AmbientSound";
+import ClickSound from "@/components/ClickSound";
 import CodeRain from "@/components/CodeRain";
 import Terminal from "@/components/Terminal";
 
