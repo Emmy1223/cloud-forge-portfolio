@@ -93,6 +93,9 @@ const Hero = () => {
               Contact Me
             </a>
           </div>
+          <p className="animate-fade-in mt-12 text-xs font-mono text-muted-foreground/50 [animation-delay:2800ms] [animation-fill-mode:both]">
+            // type 'hello' to open terminal
+          </p>
         </div>
       </div>
 
