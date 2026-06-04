@@ -24,6 +24,7 @@ const Index = () => {
       <ThemeToggle />
       <DownloadResume />
       <AmbientSound />
+      <Terminal />
       <Navbar />
       <main>
         <Hero />
