@@ -17,8 +17,20 @@ import AmbientSound from "@/components/AmbientSound";
 import ClickSound from "@/components/ClickSound";
 import CodeRain from "@/components/CodeRain";
 import Terminal from "@/components/Terminal";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 const Index = () => {
+  const location = useLocation();
+  useEffect(() => {
+    const target =
+      (location.state as { scrollTo?: string } | null)?.scrollTo ||
+      location.hash.replace("#", "");
+    if (target) {
+      const el = document.getElementById(target);
+      if (el) requestAnimationFrame(() => el.scrollIntoView({ behavior: "smooth" }));
+    }
+  }, [location]);
   return (
     <div className="relative min-h-screen overflow-hidden">
       <CodeRain />
