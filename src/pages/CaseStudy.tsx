@@ -106,12 +106,6 @@ const CaseStudy = () => {
         >
           <ArrowLeft className="h-4 w-4" /> Back to Portfolio
         </Link>
-        <button
-          onClick={shareLink}
-          className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2 text-sm font-medium text-foreground transition-all hover:border-primary/60 hover:bg-primary/20 hover:shadow-[0_0_18px_-4px_hsl(var(--primary)/0.8)]"
-        >
-          <Share2 className="h-4 w-4" /> Share
-        </button>
       </div>
 
       <main className="container-tight pb-24 pt-10">
