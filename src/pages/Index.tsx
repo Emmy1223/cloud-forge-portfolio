@@ -14,9 +14,10 @@ import Footer from "@/components/sections/Footer";
 import ThemeToggle from "@/components/ThemeToggle";
 import DownloadResume from "@/components/DownloadResume";
 import AmbientSound from "@/components/AmbientSound";
-import ClickSound from "@/components/ClickSound";
 import CodeRain from "@/components/CodeRain";
 import Terminal from "@/components/Terminal";
+import BookIntro from "@/components/BookIntro";
+import AskEmmy from "@/components/AskEmmy";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -33,11 +34,12 @@ const Index = () => {
   }, [location]);
   return (
     <div className="relative min-h-screen overflow-hidden">
+      <BookIntro />
       <CodeRain />
-      <ClickSound />
       <ThemeToggle />
       <DownloadResume />
       <AmbientSound />
+      <AskEmmy />
       <Terminal />
       <Navbar />
       <main>

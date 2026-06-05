@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { ArrowLeft, ArrowRight, Check, Copy, Github, Share2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, Copy, Github } from "lucide-react";
 import { toast } from "sonner";
 import { caseStudies, getCaseStudy } from "@/data/caseStudies";
 import { useReveal } from "@/hooks/use-reveal";
@@ -79,10 +79,6 @@ const CaseStudy = () => {
     setTimeout(() => setCopied(false), 1500);
   };
 
-  const shareLink = async () => {
-    await navigator.clipboard.writeText(window.location.href);
-    toast.success("Link copied!");
-  };
 
   return (
     <div className="relative min-h-screen animate-fade-in">
@@ -106,12 +102,6 @@ const CaseStudy = () => {
         >
           <ArrowLeft className="h-4 w-4" /> Back to Portfolio
         </Link>
-        <button
-          onClick={shareLink}
-          className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2 text-sm font-medium text-foreground transition-all hover:border-primary/60 hover:bg-primary/20 hover:shadow-[0_0_18px_-4px_hsl(var(--primary)/0.8)]"
-        >
-          <Share2 className="h-4 w-4" /> Share
-        </button>
       </div>
 
       <main className="container-tight pb-24 pt-10">
