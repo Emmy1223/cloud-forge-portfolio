@@ -34,11 +34,12 @@ const Index = () => {
   }, [location]);
   return (
     <div className="relative min-h-screen overflow-hidden">
+      <BookIntro />
       <CodeRain />
-      <ClickSound />
       <ThemeToggle />
       <DownloadResume />
       <AmbientSound />
+      <AskEmmy />
       <Terminal />
       <Navbar />
       <main>
