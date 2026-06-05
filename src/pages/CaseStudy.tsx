@@ -79,10 +79,6 @@ const CaseStudy = () => {
     setTimeout(() => setCopied(false), 1500);
   };
 
-  const shareLink = async () => {
-    await navigator.clipboard.writeText(window.location.href);
-    toast.success("Link copied!");
-  };
 
   return (
     <div className="relative min-h-screen animate-fade-in">
