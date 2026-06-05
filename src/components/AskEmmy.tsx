@@ -64,25 +64,30 @@ const AskEmmy = () => {
     setLoading(true);
     try {
       const key = import.meta.env.VITE_GEMINI_API_KEY as string | undefined;
-      if (!key) throw new Error("missing key");
+      if (!key) throw new Error("VITE_GEMINI_API_KEY is missing");
       const res = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`,
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            contents: [{ parts: [{ text: userMessage }] }],
-            systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
+            contents: [{ role: "user", parts: [{ text: userMessage }] }],
+            systemInstruction: { role: "user", parts: [{ text: SYSTEM_PROMPT }] },
+            generationConfig: { temperature: 0.7, maxOutputTokens: 500 },
           }),
         },
       );
-      if (!res.ok) throw new Error(`http ${res.status}`);
       const data = await res.json();
+      if (!res.ok) {
+        console.error("Gemini API error response:", res.status, data);
+        throw new Error(data?.error?.message || `HTTP ${res.status}`);
+      }
       const reply: string =
-        data?.candidates?.[0]?.content?.parts?.map((p: any) => p.text).join("") ??
+        data?.candidates?.[0]?.content?.parts?.map((p: any) => p.text).join("") ||
         "I don't have that information — reach out to Emmanuel directly at emmanuelfaleti@outlook.com";
       setMessages((m) => [...m, { role: "model", text: reply }]);
-    } catch {
+    } catch (error) {
+      console.error("Gemini API error:", error);
       setMessages((m) => [
         ...m,
         { role: "model", text: "Emmy is unavailable right now — email emmanuelfaleti@outlook.com" },
@@ -91,6 +96,7 @@ const AskEmmy = () => {
       setLoading(false);
     }
   };
+
 
   return (
     <>
