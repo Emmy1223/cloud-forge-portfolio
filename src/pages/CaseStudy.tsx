@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { ArrowLeft, ArrowRight, Check, Copy, Github, Share2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, Copy, Github } from "lucide-react";
 import { toast } from "sonner";
 import { caseStudies, getCaseStudy } from "@/data/caseStudies";
 import { useReveal } from "@/hooks/use-reveal";
