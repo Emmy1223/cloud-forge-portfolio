@@ -214,14 +214,26 @@ const CaseStudy = () => {
               The <span className="text-gradient">Outcome</span>
             </h2>
             <p className="mt-4 text-muted-foreground">{study.outcome}</p>
-            <a
-              href={study.github}
-              target="_blank"
-              rel="noreferrer"
-              className="mt-6 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2 text-sm font-medium text-foreground transition-all hover:border-primary/60 hover:bg-primary/20"
-            >
-              <Github className="h-4 w-4" /> View on GitHub
-            </a>
+            <div className="mt-6 flex flex-wrap gap-3">
+              {study.liveUrl && (
+                <a
+                  href={study.liveUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full bg-gradient-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-[0_0_24px_-6px_hsl(var(--primary)/0.8)] transition-all hover:scale-[1.02]"
+                >
+                  <ArrowRight className="h-4 w-4" /> View Live
+                </a>
+              )}
+              <a
+                href={study.github}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2 text-sm font-medium text-foreground transition-all hover:border-primary/60 hover:bg-primary/20"
+              >
+                <Github className="h-4 w-4" /> View on GitHub
+              </a>
+            </div>
           </section>
         </Reveal>
 
