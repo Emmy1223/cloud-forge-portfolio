@@ -1,17 +1,42 @@
-import { Cloud, Code2, Network, Shield, TestTube2 } from "lucide-react";
+import { Cloud, Code2, Database, Brain, Shield, Wrench, Layout } from "lucide-react";
 import { useReveal } from "@/hooks/use-reveal";
 import { cn } from "@/lib/utils";
 
 const groups: { icon: typeof Cloud; title: string; items: string[] }[] = [
   {
-    icon: Cloud,
-    title: "Cloud & Infrastructure",
-    items: ["AWS EC2", "AWS S3", "AWS IAM", "VPC", "Load Balancers", "Linux", "AWS CLI"],
+    icon: Code2,
+    title: "Programming Languages",
+    items: ["JavaScript", "TypeScript", "Python", "SQL", "C"],
   },
   {
-    icon: Network,
-    title: "Networking",
-    items: ["TCP/IP", "DNS", "VPNs", "OSI Model", "Routing", "IP Addressing"],
+    icon: Layout,
+    title: "Frontend",
+    items: ["React", "Vite", "Tailwind CSS", "HTML5", "CSS3", "TanStack Router", "TanStack Query"],
+  },
+  {
+    icon: Database,
+    title: "Backend",
+    items: ["Node.js", "Express.js", "FastAPI", "REST APIs", "PostgreSQL", "Redis", "Socket.io"],
+  },
+  {
+    icon: Cloud,
+    title: "Cloud & DevOps",
+    items: [
+      "AWS EC2",
+      "AWS S3",
+      "AWS IAM",
+      "AWS Lambda",
+      "AWS CloudWatch",
+      "AWS RDS",
+      "Linux Administration",
+      "CI/CD",
+      "GitHub Actions",
+    ],
+  },
+  {
+    icon: Brain,
+    title: "AI & Data",
+    items: ["Scikit-learn", "Prophet", "Pandas", "NumPy"],
   },
   {
     icon: Shield,
@@ -19,14 +44,9 @@ const groups: { icon: typeof Cloud; title: string; items: string[] }[] = [
     items: ["IAM", "Access Control", "System Hardening", "Nmap", "Wireshark"],
   },
   {
-    icon: Code2,
-    title: "Dev & Scripting",
-    items: ["Python", "Bash", "HTML", "CSS", "Git", "GitHub"],
-  },
-  {
-    icon: TestTube2,
-    title: "Testing",
-    items: ["App Testing", "Bug Reporting", "QA", "UI/UX Analysis"],
+    icon: Wrench,
+    title: "Tools",
+    items: ["Git", "GitHub", "VS Code", "Postman", "Lovable"],
   },
 ];
 
