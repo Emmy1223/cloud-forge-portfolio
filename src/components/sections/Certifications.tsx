@@ -3,10 +3,10 @@ import { useReveal } from "@/hooks/use-reveal";
 import { cn } from "@/lib/utils";
 
 const certs = [
-  { name: "Google Cloud Computing Foundation", issuer: "Google", year: "2024" },
-  { name: "Cisco Networking Essentials", issuer: "Cisco", year: "2024" },
-  { name: "Cloud Managed Network 201", issuer: "Cisco", year: "2024" },
   { name: "Linux Essentials", issuer: "Cisco", year: "2024" },
+  { name: "Cisco Networking Essentials", issuer: "Cisco", year: "2024" },
+  { name: "Cloud Managed Network 201", issuer: "Cisco", year: "2025" },
+  { name: "Google Cloud Computing Foundation", issuer: "Google", year: "2026" },
 ];
 
 const Certifications = () => {
