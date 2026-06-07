@@ -1,4 +1,4 @@
-import { Cloud, Activity, ShieldCheck, LucideIcon } from "lucide-react";
+import { Cloud, Activity, ShieldCheck, Zap, LucideIcon } from "lucide-react";
 
 export interface CaseStudy {
   slug: string;
@@ -13,11 +13,74 @@ export interface CaseStudy {
   code: { language: string; content: string };
   outcome: string;
   github: string;
+  liveUrl?: string;
   metaTitle: string;
   metaDescription: string;
 }
 
 export const caseStudies: CaseStudy[] = [
+  {
+    slug: "neural-drive",
+    icon: Zap,
+    accent: "from-amber-400 to-orange-500",
+    title: "Neural Drive — AI-Powered EV Charging Intelligence",
+    shortDescription:
+      "Cloud-native EV charging intelligence platform for Nigeria — real-time station visibility, demand forecasting, and AI-driven investment insights.",
+    tags: ["AWS", "React", "FastAPI", "AI"],
+    problem:
+      "Nigeria's emerging EV ecosystem lacks unified visibility into charging infrastructure, real-time station availability, and demand intelligence — leaving drivers, fleet operators, investors, and policymakers without the data to make informed decisions.",
+    approach: [
+      "Architected a cloud-native stack on AWS (S3, Lambda, CloudWatch, IAM) for scalable, secure delivery",
+      "Built an interactive EV charging map with Mapbox for real-time station discovery",
+      "Implemented real-time station status updates using Socket.io over a Node.js/Express backend",
+      "Designed analytics dashboards with demand heatmaps and infrastructure intelligence views",
+      "Trained AI demand forecasting models with Scikit-learn and Prophet served via FastAPI",
+      "Persisted operational data in PostgreSQL with Redis caching for low-latency reads",
+      "Shipped CI/CD with GitHub Actions and a fully mobile-responsive React + TanStack frontend",
+    ],
+    tools: [
+      "React",
+      "TypeScript",
+      "Node.js",
+      "Express.js",
+      "FastAPI",
+      "PostgreSQL",
+      "Redis",
+      "Socket.io",
+      "AWS S3",
+      "AWS Lambda",
+      "AWS CloudWatch",
+      "AWS IAM",
+      "Mapbox",
+      "Scikit-learn",
+      "Prophet",
+      "GitHub Actions",
+    ],
+    code: {
+      language: "python",
+      content: `from fastapi import FastAPI
+from prophet import Prophet
+import pandas as pd
+
+app = FastAPI()
+
+@app.post("/forecast")
+def forecast_demand(station_id: str):
+    df = load_station_history(station_id)  # ds, y
+    model = Prophet(daily_seasonality=True, weekly_seasonality=True)
+    model.fit(df)
+    future = model.make_future_dataframe(periods=24, freq="H")
+    fc = model.predict(future)[["ds", "yhat", "yhat_lower", "yhat_upper"]]
+    return fc.tail(24).to_dict(orient="records")`,
+    },
+    outcome:
+      "Delivered a production-ready EV charging intelligence platform during the One-with-AI Hackathon — empowering drivers, fleet operators, investors, and policymakers with real-time visibility, AI-driven demand forecasts, and actionable infrastructure intelligence.",
+    github: "https://github.com/Emmy1223",
+    liveUrl: "https://neural-drive-brown.vercel.app/",
+    metaTitle: "Neural Drive — Emmanuel Faleti Case Study",
+    metaDescription:
+      "AI-powered, cloud-native EV charging intelligence platform built on AWS, FastAPI, and React with real-time analytics and demand forecasting.",
+  },
   {
     slug: "s3-static-site",
     icon: Cloud,
