@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import StarField from "@/components/StarField";
 
-const SUBTITLE = "Cloud Engineer and Cybersecurity Enthusiast";
+const SUBTITLE = "Cloud Engineer · Cybersecurity Undergrad · Software Developer";
 
 const Hero = () => {
   const [typed, setTyped] = useState("");
@@ -74,8 +74,9 @@ const Hero = () => {
           </p>
 
           <p className="animate-fade-in mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg [animation-delay:2200ms] [animation-fill-mode:both]">
-            Hands-on with AWS (EC2, S3, IAM, VPC), Linux administration, and networking.
-            Building secure, scalable cloud systems with a cybersecurity-first mindset.
+            Focused on cloud infrastructure, AWS automation, cybersecurity, and scalable
+            application deployment — building secure, highly available systems with a
+            cybersecurity-first mindset.
           </p>
 
           <div className="animate-fade-in mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row [animation-delay:2500ms] [animation-fill-mode:both]">

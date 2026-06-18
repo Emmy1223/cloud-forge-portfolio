@@ -22,14 +22,22 @@ const About = () => {
           </h2>
           <div className="mt-6 space-y-5 text-base leading-relaxed text-muted-foreground sm:text-lg">
             <p>
-              I'm a Cybersecurity undergraduate and Cloud Engineering Intern with hands-on experience
-              in AWS cloud infrastructure, Linux administration, networking, and security fundamentals.
-              I work with services like EC2, S3, IAM, VPC, route tables, load balancers, and the AWS CLI.
+              I'm a Cloud Engineer, Cybersecurity Undergraduate, and Software Developer focused on
+              cloud infrastructure, AWS automation, cybersecurity, and scalable application
+              deployment. Hands-on across EC2, S3, VPC, IAM, RDS, Aurora, DynamoDB, EFS, Route 53,
+              CloudWatch, ALB/NLB, Target Groups, ACM, Organizations, Billing & Cost Management,
+              and SageMaker.
             </p>
             <p>
-              I'm familiar with security tools such as Nmap and Wireshark, and I'm committed to applying
-              cybersecurity best practices. Alongside infrastructure, I have experience in remote
-              operations, technical support, and application testing.
+              I provision and automate infrastructure with Boto3 and the AWS CLI — VPCs, subnets,
+              security groups, EC2, S3, RDS, load balancers, target groups, and Route 53 records —
+              applying Infrastructure-as-Code principles for repeatable, secure deployments. I lean
+              on CloudWatch for observability, logs, alarms, and troubleshooting across the stack.
+            </p>
+            <p>
+              Actively growing into Cloud Support Engineering, DevOps, Site Reliability Engineering
+              (SRE), and Cloud Security — with security tooling like Nmap and Wireshark in the
+              toolkit and a default of secure-by-design.
             </p>
           </div>
         </div>
