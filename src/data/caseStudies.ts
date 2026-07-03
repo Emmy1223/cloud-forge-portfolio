@@ -20,6 +20,80 @@ export interface CaseStudy {
 
 export const caseStudies: CaseStudy[] = [
   {
+    slug: "principal-ai-engineer-portfolio",
+    icon: Briefcase,
+    accent: "from-indigo-400 to-violet-500",
+    title: "Enterprise Portfolio Website for a Principal AI Platform Engineer",
+    shortDescription:
+      "Designed, engineered, debugged, and deployed a production-ready portfolio site for a client — solving 13+ frontend, deployment, backend integration, and architecture challenges end-to-end.",
+    tags: ["Client Work", "Vercel", "Apps Script", "Canvas"],
+    problem:
+      "A Principal AI Platform Engineer needed a modern, responsive, production-grade portfolio that reflected the seniority of their role. The engagement went far beyond UI — it required backend contact-form integration, deployment work, architectural refactoring, and iterative debugging based on continuous client feedback.",
+    approach: [
+      "Gathered client requirements and translated them into a full design and delivery plan",
+      "Designed the complete UI, built every section from scratch, and shipped reusable frontend components",
+      "Challenge 01 — Reducing Visual Noise: replaced the distracting Matrix background with a custom Canvas API circuit-board animation featuring glowing nodes and animated connections while keeping frame-time budget",
+      "Challenge 02 — Hero Section Optimization: rebuilt typography hierarchy, responsive scaling, spacing, and readability",
+      "Challenge 03 — Dark & Light Theme System: implemented CSS-variable-driven theming with persistent user preference via localStorage",
+      "Challenge 04 — Google Apps Script Integration: connected the contact form to Apps Script + Google Drive, resolving CORS, fetch failures, authorization, duplicate endpoint declarations, validation bugs, and async handling",
+      "Challenge 05 — Legacy JS Compatibility: identified the Rhino runtime on Apps Script and refactored ES6 code to ES5 (var, traditional functions) so the backend actually ran",
+      "Challenge 06 — Form Submission Bugs: fixed page reloads, hardened validation, and added loading, success, and failure states",
+      "Challenge 07 — Project Navigation: turned static project cards into interactive detail pages with metrics, tech stacks, and inter-page navigation",
+      "Challenge 08 — Floating Action Components: fixed overlapping floating UI by redesigning positioning and responsive behavior",
+      "Challenge 09 — Skills Section Redesign: rebuilt into categorized interactive cards with icons, hover animations, and responsive layouts",
+      "Challenge 10 — Education Section Redesign: new layout with status badge, icon header, two-column structure, divider, and responsive rules",
+      "Challenge 11 — Architecture Refactoring: broke the monolithic single-file HTML into modular HTML, CSS, and JS for maintainability and scale",
+      "Challenge 12 — Deployment & Production: configured Vercel deployment and resolved missing assets, broken routes, incorrect project structure, and production build validation",
+      "Challenge 13 — Documentation: delivered Apps Script setup guide, deployment instructions, README, and full client handover docs",
+    ],
+    tools: [
+      "HTML5",
+      "CSS3",
+      "JavaScript (ES6)",
+      "Google Apps Script",
+      "Google Drive API",
+      "Git",
+      "GitHub",
+      "Vercel",
+      "Responsive Design",
+      "Local Storage",
+      "Fetch API",
+      "Canvas API",
+      "CSS Grid",
+      "Flexbox",
+    ],
+    code: {
+      language: "javascript",
+      content: `// Apps Script (Rhino runtime — ES5 only)
+function doPost(e) {
+  try {
+    var data = JSON.parse(e.postData.contents);
+    if (!data.name || !data.email || !data.message) {
+      return json({ ok: false, error: "Missing fields" });
+    }
+    var folder = DriveApp.getFolderById(FOLDER_ID);
+    var filename = "contact-" + new Date().toISOString() + ".json";
+    folder.createFile(filename, JSON.stringify(data), "application/json");
+    return json({ ok: true });
+  } catch (err) {
+    return json({ ok: false, error: String(err) });
+  }
+}
+
+function json(obj) {
+  return ContentService
+    .createTextOutput(JSON.stringify(obj))
+    .setMimeType(ContentService.MimeType.JSON);
+}`,
+    },
+    outcome:
+      "Shipped a production-ready, fully responsive portfolio with a backend-integrated contact form, maintainable modular codebase, professional documentation, and a stable Vercel deployment — resolving 13+ engineering challenges and delivering a polished, scalable product the client could own and extend.",
+    github: "https://github.com/Emmy1223",
+    metaTitle: "Client Portfolio for a Principal AI Engineer — Emmanuel Faleti Case Study",
+    metaDescription:
+      "Client engagement: designed, engineered, debugged, and deployed a production portfolio for a Principal AI Platform Engineer with Apps Script backend and Vercel deployment.",
+  },
+  {
     slug: "neural-drive",
     icon: Zap,
     accent: "from-amber-400 to-orange-500",
