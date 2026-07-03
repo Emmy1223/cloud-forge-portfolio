@@ -1,4 +1,4 @@
-import { Cloud, Activity, ShieldCheck, Zap, LucideIcon } from "lucide-react";
+import { Cloud, Activity, ShieldCheck, Zap, Briefcase, LucideIcon } from "lucide-react";
 
 export interface CaseStudy {
   slug: string;
