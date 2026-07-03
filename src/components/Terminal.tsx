@@ -231,7 +231,7 @@ const Terminal = () => {
         return;
       case "resume":
         push([outText("Opening resume...")]);
-        setTimeout(() => window.open("/resume.pdf", "_blank"), 250);
+        setTimeout(() => window.open("/__l5e/assets-v1/0c2f05eb-d456-404b-b07c-8a4b885d614a/Emmanuel-Faleti-Resume.pdf", "_blank"), 250);
         return;
       case "github":
         push([outText("Redirecting to github.com/Emmy1223...")]);
