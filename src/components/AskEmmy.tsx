@@ -1,45 +1,109 @@
 import { useEffect, useRef, useState } from "react";
 import { Bot, Send, X } from "lucide-react";
 
-const SYSTEM_PROMPT = `You are "Ask Emmy", an AI assistant embedded in Emmanuel Faleti's portfolio website. Answer questions about Emmanuel professionally, warmly and concisely. Never make up information. Here is everything you know about Emmanuel:
+/* ------------------------------------------------------------------ */
+/*  Dynamic portfolio knowledge base                                   */
+/*  Reads the rendered DOM so the AI always answers from the LATEST    */
+/*  site content — no hardcoded facts, no manual sync.                 */
+/* ------------------------------------------------------------------ */
 
-NAME: Emmanuel Faleti
-ROLE: Cloud Engineering Intern and Cybersecurity undergraduate
-LOCATION: Ogun State, Nigeria. Open to remote roles globally.
-EMAIL: emmanuelfaleti@outlook.com
-PHONE: +234 911 807 4905
-PORTFOLIO: https://emmanuelfaleti.vercel.app
-GITHUB: https://github.com/Emmy1223
+type Section = { id: string; title: string; text: string; tokens: Set<string> };
 
-EDUCATION: Bachelor's Degree in Cybersecurity — Osun State University, Osogbo Nigeria. Started November 2023, currently in progress.
+const STOP = new Set([
+  "the","a","an","and","or","but","of","to","in","on","for","with","at","by",
+  "is","are","was","were","be","been","being","it","its","this","that","these",
+  "those","i","you","he","she","we","they","me","my","your","our","their","as",
+  "from","so","if","then","than","about","into","over","up","down","out","do",
+  "does","did","have","has","had","can","could","should","would","will","just",
+]);
 
-EXPERIENCE:
-1. Cloud Engineering Intern at Ntech — April 2026 to present, Osun Nigeria. Configures AWS resources (EC2, S3, IAM), deploys and manages apps on Linux servers, applies IP addressing DNS and routing, supports security best practices, uses CLI scripts to manage cloud resources.
-2. Freelance Virtual Assistant — December 2023 to present, Remote (Asia, US). Manages admin tasks, email, scheduling, data organization, recruitment support, research.
-3. App and Web Tester — January 2023 to May 2024, Remote US. Tested web and mobile apps, bug reporting, UI/UX feedback, QA.
+const tokenize = (s: string) =>
+  new Set(
+    s
+      .toLowerCase()
+      .replace(/[^a-z0-9\s+.#-]/g, " ")
+      .split(/\s+/)
+      .filter((w) => w.length > 1 && !STOP.has(w)),
+  );
 
-SKILLS:
-Cloud: AWS EC2, S3, IAM, VPC, Subnets, Route Tables, Load Balancers, AWS CLI, Linux Administration, Server Management, System Monitoring
-Networking: TCP/IP, IP Addressing, DNS, VPNs, OSI Model, Routing, Network Troubleshooting
-Security: Access Control, IAM, Least Privilege, System Hardening, Vulnerability Assessment, Nmap, Wireshark
-Scripting: Python, Bash, HTML, CSS, Git, GitHub
-Testing: App Testing, Web Testing, Bug Reporting, UI/UX Analysis, QA
+const cleanText = (el: Element) =>
+  (el.textContent || "")
+    .replace(/\s+/g, " ")
+    .trim();
 
-CERTIFICATIONS: Google Cloud Computing Foundation, Cisco Networking Essentials, Cloud Managed Network 201 (Cisco), Linux Essentials (Cisco)
+const extractPortfolio = (): Section[] => {
+  const root = document.querySelector("main") || document.body;
+  if (!root) return [];
+  const sections: Section[] = [];
+  const seen = new Set<string>();
 
-PROJECTS:
-1. Static Website Hosted on AWS S3 — deployed static site using S3 bucket with IAM permissions
-2. Linux Server Monitoring Lab — Bash scripts for uptime monitoring and log rotation
-3. Network Scanner Tool — Python + Nmap tool for port scanning and network discovery. GitHub: https://github.com/Emmy1223/network-scanner-tool
+  // Every <section> under main + footer
+  const nodes: Element[] = [
+    ...Array.from(root.querySelectorAll("section")),
+    ...Array.from(document.querySelectorAll("footer")),
+  ];
 
-AVAILABILITY: Currently open to Cloud Engineering, Cybersecurity, SOC Analyst, QA Engineer, and remote technical roles.
+  for (const node of nodes) {
+    const id = node.id || node.getAttribute("aria-label") || `section-${sections.length}`;
+    if (seen.has(id)) continue;
+    seen.add(id);
+    const heading = node.querySelector("h1, h2, h3");
+    const title = heading ? cleanText(heading) : id;
+    const text = cleanText(node);
+    if (text.length < 20) continue;
+    sections.push({ id, title, text, tokens: tokenize(title + " " + text) });
+  }
 
-If asked something you don't know, say: "I don't have that information — reach out to Emmanuel directly at emmanuelfaleti@outlook.com"`;
+  // Hero often has no id — capture the first big heading area explicitly
+  const h1 = document.querySelector("h1");
+  if (h1) {
+    const heroText = cleanText(h1.closest("section") || h1.parentElement || h1);
+    if (heroText && !sections.some((s) => s.text.includes(heroText.slice(0, 40)))) {
+      sections.unshift({
+        id: "hero",
+        title: cleanText(h1),
+        text: heroText,
+        tokens: tokenize(heroText),
+      });
+    }
+  }
+
+  return sections;
+};
+
+const rankSections = (question: string, sections: Section[]): Section[] => {
+  const qTokens = tokenize(question);
+  if (qTokens.size === 0) return sections;
+  const scored = sections.map((s) => {
+    let score = 0;
+    qTokens.forEach((t) => {
+      if (s.tokens.has(t)) score += 2;
+      else if (s.text.toLowerCase().includes(t)) score += 1;
+    });
+    return { s, score };
+  });
+  scored.sort((a, b) => b.score - a.score);
+  const top = scored.filter((x) => x.score > 0).map((x) => x.s);
+  // Always keep hero/about as baseline context
+  const baseline = sections.filter((s) => /hero|about|contact/i.test(s.id));
+  const merged: Section[] = [];
+  [...top, ...baseline].forEach((s) => {
+    if (!merged.includes(s)) merged.push(s);
+  });
+  return merged.slice(0, 6);
+};
+
+const buildContext = (sections: Section[]) =>
+  sections
+    .map((s) => `## ${s.title} (#${s.id})\n${s.text.slice(0, 1200)}`)
+    .join("\n\n");
+
+/* ------------------------------------------------------------------ */
 
 const STARTERS = [
-  "Is Emmanuel available for hire?",
+  "What is Emmanuel's latest project?",
   "What are his AWS skills?",
-  "Show me his projects",
+  "Show me his certifications",
   "How can I contact him?",
 ];
 
@@ -51,6 +115,36 @@ const AskEmmy = () => {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const kbRef = useRef<Section[]>([]);
+  const dirtyRef = useRef(true);
+
+  // Build KB once, refresh when the DOM changes (debounced).
+  useEffect(() => {
+    const refresh = () => {
+      kbRef.current = extractPortfolio();
+      dirtyRef.current = false;
+    };
+    // initial pass after first paint
+    const t = window.setTimeout(refresh, 300);
+
+    let debounce: number | undefined;
+    const observer = new MutationObserver(() => {
+      dirtyRef.current = true;
+      window.clearTimeout(debounce);
+      debounce = window.setTimeout(refresh, 500);
+    });
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+      characterData: true,
+    });
+
+    return () => {
+      window.clearTimeout(t);
+      window.clearTimeout(debounce);
+      observer.disconnect();
+    };
+  }, []);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
@@ -65,15 +159,39 @@ const AskEmmy = () => {
     try {
       const key = import.meta.env.VITE_GEMINI_API_KEY as string | undefined;
       if (!key) throw new Error("VITE_GEMINI_API_KEY is missing");
+
+      if (dirtyRef.current || kbRef.current.length === 0) {
+        kbRef.current = extractPortfolio();
+        dirtyRef.current = false;
+      }
+      const relevant = rankSections(userMessage, kbRef.current);
+      const context = buildContext(relevant);
+
+      const systemPrompt = `You are "Ask Emmy", a live AI assistant embedded in Emmanuel Faleti's portfolio website.
+
+You answer ONLY using the PORTFOLIO CONTENT below, which is extracted in real time from the currently rendered website. Never invent facts. If the answer isn't present, reply: "That's not currently listed on the portfolio — you can reach Emmanuel directly at emmanuelfaleti@outlook.com."
+
+Style: warm, concise, recruiter-friendly. Combine information across sections when useful. Prefer specifics (project names, technologies, dates) that appear verbatim on the site.
+
+---- PORTFOLIO CONTENT (live from DOM) ----
+${context}
+---- END PORTFOLIO CONTENT ----`;
+
+      // Include prior conversation for continuity
+      const history = messages.map((m) => ({
+        role: m.role === "user" ? "user" : "model",
+        parts: [{ text: m.text }],
+      }));
+
       const res = await fetch(
         `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${key}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            contents: [{ role: "user", parts: [{ text: userMessage }] }],
-            systemInstruction: { role: "user", parts: [{ text: SYSTEM_PROMPT }] },
-            generationConfig: { temperature: 0.7, maxOutputTokens: 500 },
+            contents: [...history, { role: "user", parts: [{ text: userMessage }] }],
+            systemInstruction: { role: "user", parts: [{ text: systemPrompt }] },
+            generationConfig: { temperature: 0.4, maxOutputTokens: 600 },
           }),
         },
       );
@@ -83,8 +201,8 @@ const AskEmmy = () => {
         throw new Error(data?.error?.message || `HTTP ${res.status}`);
       }
       const reply: string =
-        data?.candidates?.[0]?.content?.parts?.map((p: any) => p.text).join("") ||
-        "I don't have that information — reach out to Emmanuel directly at emmanuelfaleti@outlook.com";
+        data?.candidates?.[0]?.content?.parts?.map((p: { text?: string }) => p.text).join("") ||
+        "That's not currently listed on the portfolio — you can reach Emmanuel directly at emmanuelfaleti@outlook.com.";
       setMessages((m) => [...m, { role: "model", text: reply }]);
     } catch (error) {
       console.error("Gemini API error:", error);
@@ -96,7 +214,6 @@ const AskEmmy = () => {
       setLoading(false);
     }
   };
-
 
   return (
     <>
@@ -117,7 +234,7 @@ const AskEmmy = () => {
               <span className="font-display text-sm font-semibold text-foreground">Ask Emmy 🤖</span>
               <span className="inline-flex items-center gap-1 text-[10px] font-mono uppercase tracking-wider text-muted-foreground">
                 <span className="h-2 w-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.8)]" />
-                online
+                live
               </span>
             </div>
             <button
@@ -134,7 +251,7 @@ const AskEmmy = () => {
             {messages.length === 0 && (
               <div className="space-y-3">
                 <div className="rounded-2xl rounded-tl-sm border border-border bg-secondary/40 px-3 py-2 text-foreground/90">
-                  Hi! I'm Emmy 🤖 — ask me anything about Emmanuel.
+                  Hi! I'm Emmy 🤖 — I read this portfolio live, so ask me anything about Emmanuel.
                 </div>
                 <div className="flex flex-wrap gap-2 pt-1">
                   {STARTERS.map((q) => (
