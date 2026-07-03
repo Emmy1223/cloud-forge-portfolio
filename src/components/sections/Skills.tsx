@@ -56,6 +56,7 @@ const groups: { icon: typeof Cloud; title: string; items: string[] }[] = [
     icon: Wrench,
     title: "DevOps & Automation",
     items: [
+      "Terraform",
       "Linux Administration",
       "Bash",
       "AWS CLI",
