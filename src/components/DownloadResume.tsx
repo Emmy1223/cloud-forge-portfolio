@@ -1,6 +1,7 @@
 import { Download } from "lucide-react";
+import resumeAsset from "@/assets/Emmanuel-Faleti-Resume.pdf.asset.json";
 
-const RESUME_URL = "/Emmanuel-Faleti-Resume.pdf";
+const RESUME_URL = resumeAsset.url;
 
 const DownloadResume = () => {
   return (
