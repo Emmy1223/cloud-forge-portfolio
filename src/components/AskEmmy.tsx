@@ -242,7 +242,7 @@ ${context}
           {/* Header */}
           <div className="flex items-center justify-between border-b border-border/70 bg-secondary/30 px-4 py-3">
             <div className="flex items-center gap-2">
-              <span className="font-display text-sm font-semibold text-foreground">Ask Emmy 🤖</span>
+              <span className="font-display text-sm font-semibold text-foreground">Emmy AI 🤖</span>
               <span className="inline-flex items-center gap-1 text-[10px] font-mono uppercase tracking-wider text-muted-foreground">
                 <span className="h-2 w-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.8)]" />
                 live
