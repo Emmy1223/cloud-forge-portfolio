@@ -71,6 +71,12 @@ const extractPortfolio = (): Section[] => {
   return sections;
 };
 
+// Questions that are really about the tech stack should always pull in Skills
+const SKILL_TRIGGERS =
+  /\b(skill|skills|stack|tech|technolog|tool|tools|toolkit|framework|language|languages|experience with|know|use|used|build|built|mydoc|my ?doc|aws|cloud|frontend|backend|database|deploy)/i;
+
+const isSkills = (s: Section) => /skill|toolkit|stack/i.test(s.id + " " + s.title);
+
 const rankSections = (question: string, sections: Section[]): Section[] => {
   const qTokens = tokenize(question);
   if (qTokens.size === 0) return sections;
@@ -80,22 +86,25 @@ const rankSections = (question: string, sections: Section[]): Section[] => {
       if (s.tokens.has(t)) score += 2;
       else if (s.text.toLowerCase().includes(t)) score += 1;
     });
+    // Boost the live Skills section for any stack/tooling question
+    if (isSkills(s) && SKILL_TRIGGERS.test(question)) score += 10;
     return { s, score };
   });
   scored.sort((a, b) => b.score - a.score);
   const top = scored.filter((x) => x.score > 0).map((x) => x.s);
-  // Always keep hero/about as baseline context
-  const baseline = sections.filter((s) => /hero|about|contact/i.test(s.id));
+  // Always keep hero/about/contact + the Skills section as baseline context
+  const baseline = sections.filter((s) => /hero|about|contact/i.test(s.id) || isSkills(s));
   const merged: Section[] = [];
   [...top, ...baseline].forEach((s) => {
     if (!merged.includes(s)) merged.push(s);
   });
-  return merged.slice(0, 6);
+  return merged.slice(0, 7);
 };
 
 const buildContext = (sections: Section[]) =>
   sections
-    .map((s) => `## ${s.title} (#${s.id})\n${s.text.slice(0, 1200)}`)
+    // Skills lists are long — never truncate them mid-stack
+    .map((s) => `## ${s.title} (#${s.id})\n${s.text.slice(0, isSkills(s) ? 4000 : 1200)}`)
     .join("\n\n");
 
 /* ------------------------------------------------------------------ */
