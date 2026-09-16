@@ -71,6 +71,12 @@ const extractPortfolio = (): Section[] => {
   return sections;
 };
 
+// Questions that are really about the tech stack should always pull in Skills
+const SKILL_TRIGGERS =
+  /\b(skill|skills|stack|tech|technolog|tool|tools|toolkit|framework|language|languages|experience with|know|use|used|build|built|mydoc|my ?doc|aws|cloud|frontend|backend|database|deploy)/i;
+
+const isSkills = (s: Section) => /skill|toolkit|stack/i.test(s.id + " " + s.title);
+
 const rankSections = (question: string, sections: Section[]): Section[] => {
   const qTokens = tokenize(question);
   if (qTokens.size === 0) return sections;
@@ -80,22 +86,25 @@ const rankSections = (question: string, sections: Section[]): Section[] => {
       if (s.tokens.has(t)) score += 2;
       else if (s.text.toLowerCase().includes(t)) score += 1;
     });
+    // Boost the live Skills section for any stack/tooling question
+    if (isSkills(s) && SKILL_TRIGGERS.test(question)) score += 10;
     return { s, score };
   });
   scored.sort((a, b) => b.score - a.score);
   const top = scored.filter((x) => x.score > 0).map((x) => x.s);
-  // Always keep hero/about as baseline context
-  const baseline = sections.filter((s) => /hero|about|contact/i.test(s.id));
+  // Always keep hero/about/contact + the Skills section as baseline context
+  const baseline = sections.filter((s) => /hero|about|contact/i.test(s.id) || isSkills(s));
   const merged: Section[] = [];
   [...top, ...baseline].forEach((s) => {
     if (!merged.includes(s)) merged.push(s);
   });
-  return merged.slice(0, 6);
+  return merged.slice(0, 7);
 };
 
 const buildContext = (sections: Section[]) =>
   sections
-    .map((s) => `## ${s.title} (#${s.id})\n${s.text.slice(0, 1200)}`)
+    // Skills lists are long — never truncate them mid-stack
+    .map((s) => `## ${s.title} (#${s.id})\n${s.text.slice(0, isSkills(s) ? 4000 : 1200)}`)
     .join("\n\n");
 
 /* ------------------------------------------------------------------ */
@@ -167,9 +176,11 @@ const AskEmmy = () => {
       const relevant = rankSections(userMessage, kbRef.current);
       const context = buildContext(relevant);
 
-      const systemPrompt = `You are "Ask Emmy", a live AI assistant embedded in Emmanuel Faleti's portfolio website.
+      const systemPrompt = `You are "Emmy AI", a live AI assistant embedded in Emmanuel Faleti's portfolio website.
 
 You answer ONLY using the PORTFOLIO CONTENT below, which is extracted in real time from the currently rendered website. Never invent facts. If the answer isn't present, reply: "That's not currently listed on the portfolio — you can reach Emmanuel directly at emmanuelfaleti@outlook.com."
+
+For any question about skills, tech stack, tools, frameworks, or the technologies behind a project (such as myDoc), answer strictly from the "#skills" section content below — list the exact technologies named there and never substitute remembered or generic ones.
 
 Style: warm, concise, recruiter-friendly. Combine information across sections when useful. Prefer specifics (project names, technologies, dates) that appear verbatim on the site.
 
@@ -208,7 +219,7 @@ ${context}
       console.error("Gemini API error:", error);
       setMessages((m) => [
         ...m,
-        { role: "model", text: "Emmy is unavailable right now — email emmanuelfaleti@outlook.com" },
+        { role: "model", text: "Emmy AI is unavailable right now — email emmanuelfaleti@outlook.com" },
       ]);
     } finally {
       setLoading(false);
@@ -220,7 +231,7 @@ ${context}
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        aria-label="Open Ask Emmy chat"
+        aria-label="Open Emmy AI chat"
         className="fixed bottom-5 left-5 z-[60] inline-flex h-12 w-12 items-center justify-center rounded-full border border-primary/50 bg-background/80 text-primary shadow-[0_0_24px_-4px_hsl(var(--primary)/0.8)] backdrop-blur-xl transition-all hover:scale-105 hover:border-primary md:bottom-8 md:left-8 animate-glow-pulse"
       >
         <Bot className="h-5 w-5" />
@@ -231,7 +242,7 @@ ${context}
           {/* Header */}
           <div className="flex items-center justify-between border-b border-border/70 bg-secondary/30 px-4 py-3">
             <div className="flex items-center gap-2">
-              <span className="font-display text-sm font-semibold text-foreground">Ask Emmy 🤖</span>
+              <span className="font-display text-sm font-semibold text-foreground">Emmy AI 🤖</span>
               <span className="inline-flex items-center gap-1 text-[10px] font-mono uppercase tracking-wider text-muted-foreground">
                 <span className="h-2 w-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.8)]" />
                 live
@@ -251,7 +262,7 @@ ${context}
             {messages.length === 0 && (
               <div className="space-y-3">
                 <div className="rounded-2xl rounded-tl-sm border border-border bg-secondary/40 px-3 py-2 text-foreground/90">
-                  Hi! I'm Emmy 🤖 — I read this portfolio live, so ask me anything about Emmanuel.
+                  Hi! I'm Emmy AI 🤖 — I read this portfolio live, so ask me anything about Emmanuel.
                 </div>
                 <div className="flex flex-wrap gap-2 pt-1">
                   {STARTERS.map((q) => (
