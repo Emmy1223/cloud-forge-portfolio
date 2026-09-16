@@ -262,7 +262,7 @@ ${context}
             {messages.length === 0 && (
               <div className="space-y-3">
                 <div className="rounded-2xl rounded-tl-sm border border-border bg-secondary/40 px-3 py-2 text-foreground/90">
-                  Hi! I'm Emmy 🤖 — I read this portfolio live, so ask me anything about Emmanuel.
+                  Hi! I'm Emmy AI 🤖 — I read this portfolio live, so ask me anything about Emmanuel.
                 </div>
                 <div className="flex flex-wrap gap-2 pt-1">
                   {STARTERS.map((q) => (
