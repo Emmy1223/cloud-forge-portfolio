@@ -219,7 +219,7 @@ ${context}
       console.error("Gemini API error:", error);
       setMessages((m) => [
         ...m,
-        { role: "model", text: "Emmy is unavailable right now — email emmanuelfaleti@outlook.com" },
+        { role: "model", text: "Emmy AI is unavailable right now — email emmanuelfaleti@outlook.com" },
       ]);
     } finally {
       setLoading(false);
