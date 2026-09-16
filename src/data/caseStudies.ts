@@ -1,4 +1,4 @@
-import { Cloud, Activity, ShieldCheck, Zap, Briefcase, LucideIcon } from "lucide-react";
+import { Cloud, Activity, ShieldCheck, Zap, Briefcase, FileText, LucideIcon } from "lucide-react";
 
 export interface CaseStudy {
   slug: string;
@@ -19,6 +19,75 @@ export interface CaseStudy {
 }
 
 export const caseStudies: CaseStudy[] = [
+  {
+    slug: "mydoc",
+    icon: FileText,
+    accent: "from-amber-400 to-yellow-500",
+    title: "myDoc — AI-Powered CV Platform",
+    shortDescription:
+      "The CV builder that does not lie. A full-stack platform to create, modernize, and tailor professional CVs — AI parsing, job matching, six templates, and PDF export.",
+    tags: ["Next.js", "AI Integration", "Full-Stack"],
+    problem:
+      "Most CV tools either fabricate experience or lock users into rigid templates. myDoc was built around a simple philosophy: the CV builder that does not lie. Users can build a CV from scratch, upload an existing CV and restructure it, or tailor their CV to a specific job description — always grounded in their real experience.",
+    approach: [
+      "Built three CV creation flows: from scratch, upload-and-modernize an existing CV, and tailor-to-job-description",
+      "Implemented AI-powered CV parsing that extracts structured information from uploaded documents",
+      "Developed AI-powered CV tailoring based on job descriptions, with job description analysis and CV-to-job match reports",
+      "Designed six professional CV templates with a live CV preview",
+      "Engineered print-ready document rendering with A4 and Letter layouts and automatic document fitting across pages",
+      "Built a dashboard for managing saved CV documents, with thumbnails, a preview modal, and rename / duplicate / download / export / delete actions",
+      "Implemented authentication with NextAuth.js and session-aware navigation",
+      "Added PDF/document export and robust error handling for invalid or unsupported uploads",
+      "Shipped a responsive mobile interface and deployed to production on Vercel with Vercel Web Analytics",
+    ],
+    tools: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "NextAuth.js",
+      "Next.js API Routes",
+      "Lucide React",
+      "AI/LLM Integration",
+      "PDF Text Extraction",
+      "Vercel",
+      "Git",
+      "GitHub",
+    ],
+    code: {
+      language: "typescript",
+      content: `// Next.js API route — AI-powered CV tailoring
+export async function POST(req: Request) {
+  const { cvData, jobDescription } = await req.json();
+
+  if (!cvData || !jobDescription) {
+    return Response.json(
+      { error: "A CV and job description are both required." },
+      { status: 400 },
+    );
+  }
+
+  // Tailor the user's real experience to the role — never inventing
+  // achievements or skills the user doesn't actually have.
+  const tailored = await tailorCvToJob({
+    cv: cvData,
+    job: jobDescription,
+    groundTruthOnly: true,
+  });
+
+  const matchReport = analyzeMatch(tailored, jobDescription);
+
+  return Response.json({ tailored, matchReport });
+}`,
+    },
+    outcome:
+      "Shipped a production full-stack application on Vercel with authentication, AI-driven parsing and tailoring, a six-template document engine, and a complete document management dashboard. I personally handled full-stack development, AI integration, CV parsing, document generation, dashboard architecture, responsive UI, authentication, API development, and deployment.",
+    github: "https://github.com/Emmy1223",
+    liveUrl: "https://mydoc-six.vercel.app/",
+    metaTitle: "myDoc — AI-Powered CV Platform | Emmanuel Faleti",
+    metaDescription:
+      "myDoc is an AI-powered CV platform — the CV builder that does not lie. Create, modernize, and tailor professional CVs with AI parsing, job matching, six templates, and PDF export.",
+  },
   {
     slug: "principal-ai-engineer-portfolio",
     icon: Briefcase,

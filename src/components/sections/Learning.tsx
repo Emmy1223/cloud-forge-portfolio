@@ -1,4 +1,4 @@
-import { BookOpen, Cloud, Code2, ShieldCheck } from "lucide-react";
+import { BookOpen, CheckCircle2, Cloud, Code2, ShieldCheck } from "lucide-react";
 import { useReveal } from "@/hooks/use-reveal";
 import { cn } from "@/lib/utils";
 
@@ -33,7 +33,7 @@ const Learning = () => {
             Always <span className="text-gradient">leveling up</span>.
           </h2>
           <p className="mt-4 text-muted-foreground">
-            Active study tracks I'm investing in to grow as a cloud and security engineer.
+            Study tracks I've completed as I grow as a cloud and security engineer.
           </p>
         </div>
 
@@ -53,12 +53,9 @@ const Learning = () => {
               <h3 className="mt-5 font-display text-lg font-semibold text-foreground">{it.title}</h3>
               <p className="mt-2 text-sm text-muted-foreground">{it.note}</p>
               <div className="mt-5 flex items-center gap-2">
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary/70 opacity-75" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
-                </span>
-                <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                  In progress
+                <CheckCircle2 className="h-4 w-4 text-primary" />
+                <span className="text-xs font-medium uppercase tracking-wider text-primary">
+                  Completed
                 </span>
               </div>
             </div>
