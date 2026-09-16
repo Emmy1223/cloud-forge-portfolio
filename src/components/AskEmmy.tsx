@@ -231,7 +231,7 @@ ${context}
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        aria-label="Open Ask Emmy chat"
+        aria-label="Open Emmy AI chat"
         className="fixed bottom-5 left-5 z-[60] inline-flex h-12 w-12 items-center justify-center rounded-full border border-primary/50 bg-background/80 text-primary shadow-[0_0_24px_-4px_hsl(var(--primary)/0.8)] backdrop-blur-xl transition-all hover:scale-105 hover:border-primary md:bottom-8 md:left-8 animate-glow-pulse"
       >
         <Bot className="h-5 w-5" />
